@@ -2,8 +2,7 @@ package com.little.xmall.constant;
 
 /**
  * 回复编码枚举类
- * @author little
- * @date 2024.7.2
+ * @author Little
  */
 
 public enum ResponseCode {

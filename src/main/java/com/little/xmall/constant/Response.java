@@ -4,8 +4,7 @@ import lombok.Data;
 
 /**
  * 回复通用类
- * @author little
- * @date  2024.7.2
+ * @author Little
  */
 
 @Data
