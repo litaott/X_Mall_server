@@ -129,6 +129,7 @@ create table after_sale_info (
                             user_id int,
                             store_id int,
                             order_id int,
+                            goods_id int,
                             category enum(
                                 '仅退款',
                                 '退货退款',

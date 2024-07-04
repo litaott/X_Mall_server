@@ -23,6 +23,30 @@ public enum ResponseCode {
 
 
 
+    /**
+     *订单相关
+     */
+    ORDER_GET_SUCCESS(251,"订单查询成功"),
+
+    /**
+     *聊天记录相关
+     */
+    MESSAGE_GET_SUCCESS(252,"聊天记录查询成功"),
+    MESSAGE_SEND_SUCCESS(253,"消息发送成功"),
+
+    /**
+     *售后相关
+     */
+    AFTER_SALE_APPLY_SUCCESS(254,"售后申请成功"),
+    AFTER_SALE_HANDLE_SUCCESS(255,"售后处理成功"),
+
+    /**
+     *优惠相关
+     */
+    PREFERENCE_GET_SUCCESS(256,"优惠查询成功"),
+    PREFERENCE_ADD_SUCCESS(257,"优惠添加成功"),
+
+
 
 
 
