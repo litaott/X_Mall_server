@@ -27,14 +27,16 @@ create table address_info (
 ) comment '地址信息表' charset=utf8;
 
 create table cart_info (
-                              user_id int not null primary key,
-                              goods_id int not null primary key,
-                              quantity int
+                              user_id int not null,
+                              goods_id int not null,
+                              quantity int,
+                              PRIMARY KEY (user_id, goods_id)
 ) comment '购物车信息表' charset=utf8;
 
 create table follow_info (
-                           user_id int not null primary key,
-                           store_id int not null primary key
+                           user_id int not null,
+                           store_id int not null,
+                           PRIMARY KEY (user_id, store_id)
 ) comment '关注信息表' charset=utf8;
 
 drop database if exists db_XMall_goods;
@@ -43,7 +45,6 @@ use db_XMall_goods;
 create table goods_info (
                            id int not null primary key auto_increment,
                            store_id int,
-                           pref_id int,
                            goods_name varchar(1023) not null,
                            price float not null,
                            quantity int,
@@ -70,9 +71,12 @@ create database db_XMall_store;
 use db_XMall_store;
 create table store_info (
                             id int not null primary key auto_increment,
-                            user_id int,
-                            store_name varchar(255),
-                            reputation varchar(255),
+                            store_name varchar(10),
+                            password varchar(20),
+                            owner_name varchar(10),
+                            phone_number varchar(20),
+                            credit_id varchar(20),
+                            reputation float,
                             fans_number int,
                             image varchar(255),
                             create_time datetime not null,
@@ -86,7 +90,7 @@ create table order_info (
                             id int not null primary key auto_increment,
                             user_id int,
                             store_id int,
-                            price float,
+                            total_price float,
                             trans_price float,
                             pay_time datetime,
                             pay_way enum('微信','支付宝'),
@@ -125,9 +129,18 @@ create table after_sale_info (
                             user_id int,
                             store_id int,
                             order_id int,
-                            result varchar(255),
+                            category enum(
+                                '仅退款',
+                                '退货退款',
+                                '换货'
+                                ),
                             reason varchar(255),
-                            time datetime,
+                            result enum(
+                                '同意申请',
+                                '拒绝申请'
+                                ),
+                            start_time datetime,
+                            finish_time datetime,
                             is_finished int not null default 0 comment '0:未完成,1:已完成'
 ) comment '售后信息表' charset=utf8;
 
@@ -136,7 +149,11 @@ create database db_XMall_preference;
 use db_XMall_preference;
 create table preference_info (
                                 id int not null primary key auto_increment,
-                                category enum('无','降价','打折','赠品'),
+                                category enum(
+                                    '降价',
+                                    '打折',
+                                    '赠品'
+                                    ),
                                 pref_id int,
                                 start_time datetime,
                                 end_time datetime,
