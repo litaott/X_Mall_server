@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 
 /**
  * 数据库源配置类
- *
  * @author Little
  */
 
