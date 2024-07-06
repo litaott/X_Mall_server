@@ -66,3 +66,7 @@ spring:
           hikari:
             minimum-idle: 5
             maximum-pool-size: 10
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

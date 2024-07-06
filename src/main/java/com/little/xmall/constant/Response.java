@@ -15,9 +15,18 @@ public class Response {
 
     private int code;
     private String message;
-    private HashMap<String,Object> data;
+//    private HashMap<String,Object> map;
+    private Object data;
 
-    public static Response success(ResponseCode responseCode, HashMap<String,Object> data) {
+//    public static Response success(ResponseCode responseCode, HashMap<String,Object> map) {
+//        Response r = new Response();
+//        r.setCode(responseCode.getCode());
+//        r.setMessage(responseCode.getMsg());
+//        r.setMap(map);
+//        return r;
+//    }
+
+    public static Response success(ResponseCode responseCode, Object data) {
         Response r = new Response();
         r.setCode(responseCode.getCode());
         r.setMessage(responseCode.getMsg());
@@ -25,7 +34,7 @@ public class Response {
         return r;
     }
 
-    public static  Response error(ResponseCode resultCode, HashMap<String,Object> data) {
+    public static  Response error(ResponseCode resultCode, Object data) {
         Response r = new Response();
         r.setCode(resultCode.getCode());
         r.setMessage(resultCode.getMsg());
