@@ -14,10 +14,19 @@ public class MapUtil {
         return new HashMap<>(map);
     }
 
-    public static HashMap<String, Object> of (String string, Object object) {
+    public static HashMap<String, Object> of (String s1, Object o1) {
         return new HashMap<>(
                 Map.of(
-                        string , object
+                        s1 , o1
+                )
+        );
+    }
+
+    public static HashMap<String, Object> of (String s1, Object o1, String s2, Object o2) {
+        return new HashMap<>(
+                Map.of(
+                        s1 , o1,
+                        s2 , o2
                 )
         );
     }

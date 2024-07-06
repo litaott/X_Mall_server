@@ -9,6 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @author Little
  */
 
-@Mapper
 public interface MessageInfoMapper extends BaseMapper<MessageInfo> {
 }
