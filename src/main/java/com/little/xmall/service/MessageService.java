@@ -17,7 +17,7 @@ public interface MessageService extends IService<MessageInfo> {
      * @param messageInfo 消息信息
      * @return Response
      */
-    Response<Object> sendMessage(MessageInfo messageInfo);
+    Response sendMessage(MessageInfo messageInfo);
 
     /**
      * 获取用户与商家聊天记录
