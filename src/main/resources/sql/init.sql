@@ -3,7 +3,7 @@ create database db_XMall_user;
 use db_XMall_user;
 create table user_info
 (
-    id            int                 not null primary key auto_increment
+    user_id            int                 not null primary key auto_increment
         comment '用户id',
     password      varchar(20)       not null
         comment '密码',
@@ -31,7 +31,7 @@ create table user_info
 
 create table address_info
 (
-    id           int          not null primary key auto_increment
+    address_id           int          not null primary key auto_increment
         comment '地址id',
     user_id      int
         comment '所属用户id',
@@ -72,7 +72,7 @@ create database db_XMall_goods;
 use db_XMall_goods;
 create table goods_info
 (
-    id             int           not null primary key auto_increment
+    goods_id             int           not null primary key auto_increment
         comment '商品id',
     store_id       int
         comment '所属店铺id',
@@ -102,7 +102,7 @@ create table goods_info
 
 create table comment_info
 (
-    id        int      not null primary key auto_increment
+    comment_id        int      not null primary key auto_increment
         comment '评论id',
     goods_id  int
         comment '所属商品id',
@@ -119,7 +119,7 @@ create database db_XMall_store;
 use db_XMall_store;
 create table store_info
 (
-    id           int      not null primary key auto_increment
+    store_id           int      not null primary key auto_increment
         comment '店铺id',
     store_name   varchar(10)
         comment '店铺名称',
@@ -148,7 +148,7 @@ create database db_XMall_order;
 use db_XMall_order;
 create table order_info
 (
-    id           int not null primary key auto_increment
+    order_id           int not null primary key auto_increment
         comment '订单id',
     user_id      int
         comment '买家id',
@@ -176,7 +176,7 @@ create table order_info
 
 create table order_detail_info
 (
-    id       int not null primary key auto_increment
+    order_detail_id       int not null primary key auto_increment
         comment '订单详情id',
     order_id int
         comment '所属订单id',
@@ -193,7 +193,7 @@ create database db_XMall_communication;
 use db_XMall_communication;
 create table communication_info
 (
-    id          int not null primary key auto_increment
+    message_id          int not null primary key auto_increment
         comment '消息id',
     sender_id   int
         comment '发送者id',
@@ -212,7 +212,7 @@ create database db_XMall_after_sale;
 use db_XMall_after_sale;
 create table after_sale_info
 (
-    id          int not null primary key auto_increment
+    after_sale_id          int not null primary key auto_increment
         comment '售后订单id',
     user_id     int
         comment '用户id',
@@ -241,7 +241,7 @@ create database db_XMall_preference;
 use db_XMall_preference;
 create table preference_info
 (
-    id         int not null primary key auto_increment
+    preference_id         int not null primary key auto_increment
         comment '优惠方案id',
     category   enum ('降价','打折','赠品')
         comment '优惠类型',
