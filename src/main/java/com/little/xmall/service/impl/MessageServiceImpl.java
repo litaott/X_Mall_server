@@ -30,7 +30,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageInfoMapper, MessageIn
     @Override
     public Response<Map<String,Object>> sendMessage(MessageInfo messageInfo) {
         messageInfoMapper.insert(messageInfo);
-        int id = messageInfo.getId();
+        int id = messageInfo.getMessage_id();
         return Response.success(ResponseCode.MESSAGE_SEND_SUCCESS, Map.of("message_id", id));
     }
 
