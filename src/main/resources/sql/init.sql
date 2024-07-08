@@ -3,7 +3,7 @@ create database db_XMall_user;
 use db_XMall_user;
 create table user_info
 (
-    id            int                 not null primary key auto_increment,
+    user_id            int                 not null primary key auto_increment,
     password      varchar(1023)       not null,
     username      varchar(255) binary not null,
     is_login      int                 not null comment '0:未登录,1:已登录',
@@ -19,7 +19,7 @@ create table user_info
 
 create table address_info
 (
-    id           int          not null primary key auto_increment,
+    address_id           int          not null primary key auto_increment,
     user_id      int,
     address      varchar(255) not null,
     receiver     varchar(255) not null,
@@ -48,7 +48,7 @@ create database db_XMall_goods;
 use db_XMall_goods;
 create table goods_info
 (
-    id             int           not null primary key auto_increment,
+    goods_id             int           not null primary key auto_increment,
     store_id       int,
     goods_name     varchar(1023) not null,
     price          float         not null,
@@ -65,7 +65,7 @@ create table goods_info
 
 create table comment_info
 (
-    id        int      not null primary key auto_increment,
+    comment_id        int      not null primary key auto_increment,
     goods_id  int,
     sender_id int,
     message   varchar(255),
@@ -77,7 +77,7 @@ create database db_XMall_store;
 use db_XMall_store;
 create table store_info
 (
-    id           int      not null primary key auto_increment,
+    store_id           int      not null primary key auto_increment,
     store_name   varchar(10),
     password     varchar(20),
     owner_name   varchar(10),
@@ -95,7 +95,7 @@ create database db_XMall_order;
 use db_XMall_order;
 create table order_info
 (
-    id           int not null primary key auto_increment,
+    order_id           int not null primary key auto_increment,
     user_id      int,
     store_id     int,
     total_price  float,
@@ -106,12 +106,13 @@ create table order_info
     receive_time datetime,
     finish_time  datetime,
     address      varchar(255),
+
     status       enum ('未支付','待发货','运输中','已到货','已完成')
 ) comment '订单信息表' charset = utf8;
 
 create table order_detail_info
 (
-    id       int not null primary key auto_increment,
+    order_detail_id       int not null primary key auto_increment,
     order_id int,
     goods_id int,
     price    float,
@@ -123,7 +124,7 @@ create database db_XMall_communication;
 use db_XMall_communication;
 create table communication_info
 (
-    id          int not null primary key auto_increment,
+    message_id          int not null primary key auto_increment,
     sender_id   int,
     receiver_id int,
     message     varchar(1023),
@@ -136,7 +137,7 @@ create database db_XMall_after_sale;
 use db_XMall_after_sale;
 create table after_sale_info
 (
-    id          int not null primary key auto_increment,
+    after_sale_id          int not null primary key auto_increment,
     user_id     int,
     store_id    int,
     order_id    int,
@@ -157,7 +158,7 @@ create database db_XMall_preference;
 use db_XMall_preference;
 create table preference_info
 (
-    id         int not null primary key auto_increment,
+    preference_id         int not null primary key auto_increment,
     category   enum ('降价','打折','赠品'),
     pref_id    int,
     start_time datetime,

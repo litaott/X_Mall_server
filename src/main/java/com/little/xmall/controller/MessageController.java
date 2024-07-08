@@ -1,6 +1,6 @@
 package com.little.xmall.controller;
 
-import com.fasterxml.jackson.core.util.RequestPayload;
+
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.MessageInfo;
 import com.little.xmall.service.MessageService;
@@ -14,8 +14,8 @@ import java.util.Map;
  * 消息控制器
  * @author Little
  */
-@Slf4j
-@CrossOrigin
+@Slf4j//日志
+@CrossOrigin//跨域链接
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/communication")
@@ -28,7 +28,7 @@ public class MessageController {
      * @param messageInfo   消息信息
      * @return Response
      */
-    @PostMapping("/send_message")
+    @PostMapping("/send_message")//路由
     public Response sendMessage(@RequestBody MessageInfo messageInfo){
         return messageService.sendMessage(messageInfo);
     }
