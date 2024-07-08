@@ -16,33 +16,24 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.Map;
 /**
- * 用户信息实体类
+ * 商店信息实体类
  * @author Little
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("user_info")
-public class UserInfo implements Serializable{
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer user_id;
+@TableName("store_info")
+public class StoreInfo implements Serializable{
+    @TableId(value = "store_id", type = IdType.AUTO)
+    private Integer store_id;
+    private String store_name;
+    private String owner_name;
     private String password;
-    private String username;
-    private int is_login;
     private String phone_number;
-    private String avatar;
-    private int gender;
-    private int age;
-    private int follow_number;
-//    private enum role {
-//        USER("用户"), ADMINISTRATOR("管理员");
-//        private String description;
-//
-//        role(String description) {
-//            this.description = description;
-//        }
-//    }
+    private String credit_id;
+    private float reputation;
+    private int fans_number;
+    private String images;
     private String create_time;
     private int del_flag;
-
 }
