@@ -25,16 +25,16 @@ public class AddressInfo implements Serializable {
     private String receiver;
     private String phone_number;
     private int is_default;
-    private enum label {
-        HOME("家"),SCHOOL("学校"),COMPANY("公司");
-        private String description;
-
-        label(String description) {
-            this.description = description;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    };
+//    private enum label {
+//        HOME("家"),SCHOOL("学校"),COMPANY("公司");
+//        private String description;
+//
+//        label(String description) {
+//            this.description = description;
+//        }
+//
+//        public String getDescription() {
+//            return description;
+//        }
+//    }
 }
