@@ -7,14 +7,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * 消息控制器
  * @author Little
  */
-@Slf4j//日志
-@CrossOrigin//跨域链接
+@Slf4j
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/communication")
@@ -27,8 +28,8 @@ public class MessageController {
      * @param messageInfo   消息信息
      * @return Response
      */
-    @PostMapping("/send_message")//路由
-    public Response sendMessage(@RequestBody MessageInfo messageInfo){
+    @PostMapping("/send_message")
+    public Response<Map<String, Object>> sendMessage(@RequestBody MessageInfo messageInfo){
         return messageService.sendMessage(messageInfo);
     }
 
@@ -39,7 +40,7 @@ public class MessageController {
      * @return Response
      */
     @GetMapping("/get_message")
-    public Response getMessage(int user_id, int store_id){
+    public Response<List<Map<String, Object>>> getMessage(int user_id, int store_id){
         return messageService.getMessage(user_id,store_id);
     }
 

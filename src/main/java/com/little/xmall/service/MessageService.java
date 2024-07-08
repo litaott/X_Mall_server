@@ -11,7 +11,6 @@ import java.util.Map;
  * 消息服务接口
  * @author Little
  */
-
 public interface MessageService extends IService<MessageInfo> {
 
     /**
