@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.MessageInfo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 消息服务接口
  * @author Little
@@ -17,7 +20,7 @@ public interface MessageService extends IService<MessageInfo> {
      * @param messageInfo 消息信息
      * @return Response
      */
-    Response sendMessage(MessageInfo messageInfo);
+    Response<Map<String,Object>> sendMessage(MessageInfo messageInfo);
 
     /**
      * 获取用户与商家聊天记录
@@ -25,7 +28,7 @@ public interface MessageService extends IService<MessageInfo> {
      * @param store_id      商家id
      * @return Response
      */
-    Response getMessage(int user_id, int store_id);
+    Response<List<Map<String,Object>>> getMessage(int user_id, int store_id);
 
 
 }
