@@ -1,34 +1,45 @@
 package com.little.xmall.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+
 /**
- * Map工具类
+ * Map转换工具类
  * @author Little
  */
 
 public class MapUtil {
 
-    public static HashMap<String, Object> of (Map<String, Object> map) {
-        return new HashMap<>(map);
+    /**
+     * 实体类转换为Map
+     * @param obj   实体类
+     * @param <T>   泛型
+     * @return map
+     */
+    public static <T> Map<String, Object> getMap (T obj){
+        String jsonString = JSON.toJSONString(obj);
+        System.out.println("json语句:" + jsonString);
+        TypeReference<Map<String, Object>> typeReference = new TypeReference<>() {};
+        System.out.println("map语句:" + JSON.parseObject(jsonString, typeReference));
+        return JSON.parseObject(jsonString, typeReference);
     }
 
-    public static HashMap<String, Object> of (String s1, Object o1) {
-        return new HashMap<>(
-                Map.of(
-                        s1 , o1
-                )
-        );
-    }
-
-    public static HashMap<String, Object> of (String s1, Object o1, String s2, Object o2) {
-        return new HashMap<>(
-                Map.of(
-                        s1 , o1,
-                        s2 , o2
-                )
-        );
+    /**
+     * 实体类列表转换为Map列表
+     * @param list_obj  实体类列表
+     * @param <T>       泛型
+     * @return list_map
+     */
+    public static <T> List<Map<String, Object>> getMapList (List<T> list_obj){
+        List<Map<String, Object>> list_map = new ArrayList<>();
+        for (T obj: list_obj)
+            list_map.add(getMap(obj));
+        return list_map;
     }
 
 }

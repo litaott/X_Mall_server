@@ -1,6 +1,5 @@
 package com.little.xmall.controller;
 
-import com.fasterxml.jackson.core.util.RequestPayload;
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.MessageInfo;
 import com.little.xmall.service.MessageService;
@@ -35,13 +34,13 @@ public class MessageController {
 
     /**
      * 获取用户与商家聊天记录
-//     * @param user_id       用户id
-//     * @param store_id      商家id
+     * @param user_id       用户id
+     * @param store_id      商家id
      * @return Response
      */
     @GetMapping("/get_message")
-    public Response getMessage(@RequestBody Map<String,Object> requestBody){
-        return messageService.getMessage((int)requestBody.get("user_id"), (int)requestBody.get("store_id"));
+    public Response getMessage(int user_id, int store_id){
+        return messageService.getMessage(user_id,store_id);
     }
 
 }

@@ -28,22 +28,21 @@ public class MessageServiceImpl extends ServiceImpl<MessageInfoMapper, MessageIn
     private final MessageInfoMapper messageInfoMapper;
 
     @Override
-    public Response sendMessage(MessageInfo messageInfo) {
+    public Response<Map<String,Object>> sendMessage(MessageInfo messageInfo) {
         messageInfoMapper.insert(messageInfo);
         int id = messageInfo.getId();
-        return Response.success(ResponseCode.MESSAGE_SEND_SUCCESS, MapUtil.of("message_id", id));
+        return Response.success(ResponseCode.MESSAGE_SEND_SUCCESS, Map.of("message_id", id));
     }
 
     @Override
-    public Response getMessage(int user_id, int store_id) {
+    public Response<List<Map<String,Object>>> getMessage(int user_id, int store_id) {
         List<MessageInfo> messages = messageInfoMapper.selectByMap(
-                MapUtil.of("sender_id", user_id, "receiver_id", store_id)
+                Map.of("sender_id", user_id, "receiver_id", store_id)
         );
-        messages.addAll(
-                messageInfoMapper.selectByMap(
-                        MapUtil.of("sender_id", store_id, "receiver_id", user_id)
-                )
+        List<MessageInfo> messages2 = messageInfoMapper.selectByMap(
+                Map.of("sender_id", store_id, "receiver_id", user_id)
         );
-        return Response.success(ResponseCode.MESSAGE_GET_SUCCESS, messages);
+        messages.addAll(messages2);
+        return Response.success(ResponseCode.MESSAGE_GET_SUCCESS, MapUtil.getMapList(messages));
     }
 }
