@@ -3,6 +3,7 @@ package com.little.xmall.service.impl;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
+import com.little.xmall.constant.ResponseCode;
 import com.little.xmall.entity.PreferenceInfo;
 import com.little.xmall.mapper.PreferenceMapper;
 import com.little.xmall.service.PreferenceService;
@@ -28,6 +29,11 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
 
     @Override
     public Response<List<Map<String, Object>>> get_preference_info(int goods_id) {
+        return null;
+    }
+
+    @Override
+    public Response<List<Map<String, Object>>> get_preference_info(PreferenceInfo preferenceInfo) {
         return null;
     }
 }

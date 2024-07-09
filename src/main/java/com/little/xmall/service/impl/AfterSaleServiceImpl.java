@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +28,16 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
 
     @Override
     public Response<Map<String, Object>> apply(AfterSaleInfo afterSaleInfo) {
+        return null;
+    }
+
+    @Override
+    public Response<Map<String, Object>> handle(AfterSaleInfo afterSaleInfo) {
+        return null;
+    }
+
+    @Override
+    public Response<List<Map<String, Object>>> get_user_after_sale(int user_id) {
         return null;
     }
 }

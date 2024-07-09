@@ -11,6 +11,8 @@ create table user_info
         comment '用户名',
     is_login      enum ('未登录','已登录')   not null default '未登录'
         comment '登录状态',
+    balance       float                       not null default 0
+        comment '余额',
     phone_number  varchar(20)                not null
         comment '电话号码',
     avatar        varchar(1023)
@@ -66,6 +68,19 @@ create table follow_info
         comment '店铺id',
     PRIMARY KEY (user_id, store_id)
 ) comment '关注信息表' charset = utf8;
+
+create table history_info
+(
+    user_id  int not null
+        comment '用户id',
+    goods_id int not null
+        comment '商品id',
+    time    datetime                       not null
+        comment '浏览时间',
+    del_flag       enum ('未删除','已删除') not null default '未删除'
+        comment '删除标记',
+    PRIMARY KEY (user_id, goods_id)
+)comment '历史浏览信息表' charset = utf8;
 
 drop database if exists db_XMall_goods;
 create database db_XMall_goods;
@@ -141,6 +156,8 @@ create table store_info
         comment '经营者身份信息',
     reputation   float                    not null default 5.0
         comment '店铺评级',
+    revenue      float                    not null default 0
+        comment '店铺总营收',
     fans_number  int                      not null default 0
         comment '粉丝数',
     image        varchar(255)
@@ -168,7 +185,7 @@ create table order_info
         comment '运费',
     pay_time     datetime
         comment '支付时间',
-    pay_way      enum ('微信','支付宝')
+    pay_way      enum ('微信','支付宝','余额')
         comment '支付方式',
     send_time    datetime
         comment '发货时间',
@@ -251,6 +268,8 @@ create table preference_info
 (
     preference_id int                         not null primary key auto_increment
         comment '优惠方案id',
+    goods_id      int                         not null
+        comment '所属商品id',
     category      enum ('降价','打折','赠品') not null
         comment '优惠类型',
     pref_id       int                         not null

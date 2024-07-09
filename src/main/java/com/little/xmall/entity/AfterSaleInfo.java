@@ -31,5 +31,5 @@ public class AfterSaleInfo implements Serializable {
     private String result;
     private String start_time;
     private String finish_time;
-    private int is_finished;
+    private String is_finished;
 }

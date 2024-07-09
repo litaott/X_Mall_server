@@ -19,4 +19,11 @@ public interface PreferenceService extends IService<PreferenceInfo> {
      * @return Response
      */
     Response<List<Map<String,Object>>> get_preference_info(int goods_id);
+
+    /**
+     * 添加商品优惠信息
+     * @param preferenceInfo 优惠信息
+     * @return Response
+     */
+    Response<List<Map<String,Object>>> get_preference_info(PreferenceInfo preferenceInfo);
 }
