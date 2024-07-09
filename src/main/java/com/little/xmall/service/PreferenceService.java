@@ -25,5 +25,5 @@ public interface PreferenceService extends IService<PreferenceInfo> {
      * @param preferenceInfo 优惠信息
      * @return Response
      */
-    Response<List<Map<String,Object>>> get_preference_info(PreferenceInfo preferenceInfo);
+    Response<Map<String,Object>> add_preference(PreferenceInfo preferenceInfo);
 }

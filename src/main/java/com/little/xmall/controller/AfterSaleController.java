@@ -42,7 +42,7 @@ public class AfterSaleController {
      * @return Response
      */
     @PutMapping("/handle")
-    Response<Map<String, Object>> handle(AfterSaleInfo afterSaleInfo) {
+    Response<Map<String, Object>> handle(@RequestBody AfterSaleInfo afterSaleInfo) {
         return afterSaleService.handle(afterSaleInfo);
     }
 
@@ -55,6 +55,17 @@ public class AfterSaleController {
     @GetMapping("/get_user_after_sale")
     Response<List<Map<String, Object>>> get_user_after_sale(int user_id) {
         return afterSaleService.get_user_after_sale(user_id);
+    }
+
+    /**
+     * 获取店铺售后订单列表
+     *
+     * @param store_id 店铺id
+     * @return Response
+     */
+    @GetMapping("/get_store_after_sale")
+    Response<List<Map<String, Object>>> get_store_after_sale(int store_id) {
+        return afterSaleService.get_store_after_sale(store_id);
     }
 
 }

@@ -52,8 +52,8 @@ public class OrderController {
      * @param orderInfo 订单信息
      * @return Response
      */
-    @PostMapping("/pay_order")
-    public Response<Map<String, Object>> payOrder(OrderInfo orderInfo) {
+    @PutMapping("/pay_order")
+    public Response<Map<String, Object>> payOrder(@RequestBody OrderInfo orderInfo) {
         return orderService.payOrder(orderInfo);
     }
 
@@ -63,8 +63,8 @@ public class OrderController {
      * @param orderInfo 订单信息
      * @return Response
      */
-    @PostMapping("/send_order")
-    public Response<Map<String, Object>> sendOrder(OrderInfo orderInfo) {
+    @PutMapping("/send_order")
+    public Response<Map<String, Object>> sendOrder(@RequestBody OrderInfo orderInfo) {
         return orderService.sendOrder(orderInfo);
     }
 
@@ -74,8 +74,8 @@ public class OrderController {
      * @param orderInfo 订单信息
      * @return Response
      */
-    @PostMapping("/receive_order")
-    public Response<Map<String, Object>> receiveOrder(OrderInfo orderInfo) {
+    @PutMapping("/receive_order")
+    public Response<Map<String, Object>> receiveOrder(@RequestBody OrderInfo orderInfo) {
         return orderService.receiveOrder(orderInfo);
     }
 
@@ -85,8 +85,8 @@ public class OrderController {
      * @param orderInfo 订单信息
      * @return Response
      */
-    @PostMapping("/finish_order")
-    public Response<Map<String, Object>> finishOrder(OrderInfo orderInfo) {
+    @PutMapping("/finish_order")
+    public Response<Map<String, Object>> finishOrder(@RequestBody OrderInfo orderInfo) {
         return orderService.finishOrder(orderInfo);
     }
 

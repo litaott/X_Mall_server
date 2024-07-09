@@ -1,13 +1,11 @@
 package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
+import com.little.xmall.entity.PreferenceInfo;
 import com.little.xmall.service.PreferenceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -31,8 +29,18 @@ public class PreferenceController {
      * @return Response
      */
     @GetMapping("/get_preference_info")
-    Response<List<Map<String,Object>>> get_preference_info(int goods_id){
+    public Response<List<Map<String,Object>>> get_preference_info(int goods_id){
         return preferenceService.get_preference_info(goods_id);
+    }
+
+    /**
+     * 添加商品优惠信息
+     * @param preferenceInfo 优惠信息
+     * @return Response
+     */
+    @PostMapping("/add_preference")
+    public Response<Map<String,Object>> add_preference(@RequestBody PreferenceInfo preferenceInfo){
+        return preferenceService.add_preference(preferenceInfo);
     }
 
 }
