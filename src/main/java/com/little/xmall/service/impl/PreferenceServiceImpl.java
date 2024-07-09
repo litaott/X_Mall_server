@@ -33,7 +33,8 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
     }
 
     @Override
-    public Response<List<Map<String, Object>>> get_preference_info(PreferenceInfo preferenceInfo) {
+    public Response<Map<String, Object>> add_preference(PreferenceInfo preferenceInfo) {
         return null;
     }
+
 }

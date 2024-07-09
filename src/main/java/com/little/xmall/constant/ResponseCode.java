@@ -45,6 +45,21 @@ public enum ResponseCode {
      *订单相关
      */
     ORDER_GET_SUCCESS(251,"订单查询成功"),
+    ORDER_CREATE_SUCCESS(258,"订单创建成功"),
+    ORDER_PAY_SUCCESS(259,"订单支付成功"),
+    ORDER_SEND_SUCCESS(260,"订单发货成功"),
+    ORDER_RECEIVE_SUCCESS(261,"订单到货成功"),
+    ORDER_FINISH_SUCCESS(262,"订单完成成功"),
+
+    ORDER_NOT_EXIST(451,"订单不存在"),
+    ORDER_NOT_PAY(452,"订单未支付"),
+    ORDER_NOT_SEND(453,"订单未发货"),
+    ORDER_NOT_RECEIVE(454,"订单未到货"),
+    ORDER_ALREADY_PAY(455,"订单已支付"),
+    ORDER_ALREADY_SEND(456,"订单已发货"),
+    ORDER_ALREADY_RECEIVE(457,"订单已到货"),
+    ORDER_ALREADY_FINISH(458,"订单已完成"),
+
 
     /**
      *聊天记录相关
@@ -57,6 +72,13 @@ public enum ResponseCode {
      */
     AFTER_SALE_APPLY_SUCCESS(254,"售后申请成功"),
     AFTER_SALE_HANDLE_SUCCESS(255,"售后处理成功"),
+    AFTER_SALE_USER_GET_SUCCESS(263,"用户售后订单查询成功"),
+    AFTER_SALE_STORE_GET_SUCCESS(264,"商家售后订单查询成功"),
+
+    AFTER_SALE_NOT_EXIST(459,"售后订单不存在"),
+    AFTER_SALE_ALREADY_HANDLE(460,"售后订单已处理"),
+
+
 
     /**
      *优惠相关
@@ -76,8 +98,8 @@ public enum ResponseCode {
      */
     THE_END(1000,"末尾占位");
 
-    private int code;
-    private String msg;
+    private final int code;
+    private final String msg;
 
     ResponseCode(int code, String msg) {
         this.code = code;

@@ -33,4 +33,11 @@ public interface AfterSaleService extends IService<AfterSaleInfo> {
      * @return Response
      */
     Response<List<Map<String,Object>>> get_user_after_sale(int user_id);
+
+    /**
+     * 获取店铺售后订单列表
+     * @param store_id 店铺id
+     * @return Response
+     */
+    Response<List<Map<String,Object>>> get_store_after_sale(int store_id);
 }
