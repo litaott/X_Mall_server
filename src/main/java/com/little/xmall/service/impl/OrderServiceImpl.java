@@ -27,7 +27,32 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
     private final OrderInfoMapper orderInfoMapper;
 
     @Override
+    public Response<Map<String, Object>> createOrder(OrderInfo orderInfo) {
+        return null;
+    }
+
+    @Override
     public Response<List<Map<String, Object>>> getUserOrder(int user_id) {
+        return null;
+    }
+
+    @Override
+    public Response<Map<String, Object>> payOrder(OrderInfo orderInfo) {
+        return null;
+    }
+
+    @Override
+    public Response<Map<String, Object>> sendOrder(OrderInfo orderInfo) {
+        return null;
+    }
+
+    @Override
+    public Response<Map<String, Object>> receiveOrder(OrderInfo orderInfo) {
+        return null;
+    }
+
+    @Override
+    public Response<Map<String, Object>> finishOrder(OrderInfo orderInfo) {
         return null;
     }
 }

@@ -29,6 +29,7 @@ public class UserInfo implements Serializable{
     private String password;
     private String username;
     private int is_login;
+    private float balance;
     private String phone_number;
     private String avatar;
     private int gender;

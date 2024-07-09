@@ -22,14 +22,10 @@ import java.io.Serializable;
 public class PreferenceInfo implements Serializable {
     @TableId(value = "preference_id", type = IdType.AUTO)
     private Integer preference_id;
-    private String category;
-    private int user_id;
-    private int store_id;
-    private int order_id;
     private int goods_id;
-    private String reason;
-    private String result;
+    private int pref_id;
+    private String category;
+    private String pref_name;
     private String start_time;
-    private String finish_time;
-    private int is_finished;
+    private String end_time;
 }

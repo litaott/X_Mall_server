@@ -32,6 +32,7 @@ public class StoreInfo implements Serializable{
     private String phone_number;
     private String credit_id;
     private float reputation;
+    private float revenue;
     private int fans_number;
     private String images;
     private String create_time;
