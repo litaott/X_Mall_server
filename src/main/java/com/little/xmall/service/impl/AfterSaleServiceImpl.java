@@ -1,12 +1,14 @@
 package com.little.xmall.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
 import com.little.xmall.entity.AfterSaleInfo;
 import com.little.xmall.mapper.AfterSaleMapper;
 import com.little.xmall.service.AfterSaleService;
+import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,9 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
 
     @Override
     public Response<Map<String, Object>> apply(AfterSaleInfo afterSaleInfo) {
+        // 请求信息为空
+        if (afterSaleInfo == null)
+            return Response.error(ResponseCode.FAIL, null);
         afterSaleMapper.insert(afterSaleInfo);
         int id = afterSaleInfo.getAfter_sale_id();
         return Response.success(ResponseCode.AFTER_SALE_APPLY_SUCCESS, Map.of("after_sale_id",id));
@@ -36,29 +41,38 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
 
     @Override
     public Response<Map<String, Object>> handle(AfterSaleInfo afterSaleInfo) {
-        AfterSaleInfo a = afterSaleMapper.selectById(afterSaleInfo.getAfter_sale_id());
-        if (a == null){
+        // 请求信息为空
+        if (afterSaleInfo == null || afterSaleInfo.getAfter_sale_id() == null)
             return Response.error(ResponseCode.AFTER_SALE_NOT_EXIST, null);
-        }else {
-            if (a.getIs_finished().equals("已完成")){
-                return Response.error(ResponseCode.AFTER_SALE_ALREADY_HANDLE, null);
-            }else {
-                a.setResult(afterSaleInfo.getResult());
-                a.setIs_finished("已完成");
-                afterSaleMapper.updateById(a);
-                int id = a.getAfter_sale_id();
-                return Response.success(ResponseCode.AFTER_SALE_HANDLE_SUCCESS, Map.of("after_sale_id",id));
-            }
-        }
+        // 查询售后订单
+        AfterSaleInfo a = afterSaleMapper.selectById(afterSaleInfo.getAfter_sale_id());
+        // 售后订单不存在
+        if (a == null)
+            return Response.error(ResponseCode.AFTER_SALE_NOT_EXIST, null);
+        // 售后订单已完成
+        if (a.getIs_finished().equals("已完成"))
+            return Response.error(ResponseCode.AFTER_SALE_ALREADY_HANDLE, null);
+        // 更新售后订单
+        a.setResult(afterSaleInfo.getResult());
+        a.setIs_finished("已完成");
+        afterSaleMapper.updateById(a);
+        int id = a.getAfter_sale_id();
+        return Response.success(ResponseCode.AFTER_SALE_HANDLE_SUCCESS, Map.of("after_sale_id",id));
     }
 
     @Override
     public Response<List<Map<String, Object>>> get_user_after_sale(int user_id) {
-        return null;
+        LambdaQueryWrapper<AfterSaleInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AfterSaleInfo::getUser_id, user_id);
+        List<Map<String, Object>> list = afterSaleMapper.selectMaps(queryWrapper);
+        return Response.success(ResponseCode.AFTER_SALE_USER_GET_SUCCESS, list);
     }
 
     @Override
     public Response<List<Map<String, Object>>> get_store_after_sale(int store_id) {
-        return null;
+        LambdaQueryWrapper<AfterSaleInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AfterSaleInfo::getStore_id, store_id);
+        List<Map<String, Object>> list = afterSaleMapper.selectMaps(queryWrapper);
+        return Response.success(ResponseCode.AFTER_SALE_USER_GET_SUCCESS, list);
     }
 }
