@@ -1,8 +1,9 @@
 package com.little.xmall.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.UserInfo;
-import com.little.xmall.constant.Response;
+
 import java.util.Map;
 import java.util.List;
 
@@ -11,25 +12,17 @@ import java.util.List;
  * @author Little
  */
 
-public interface UserInfoService {
-    Response<Map<String, Object>> apply(UserInfo userInfo);
+public interface UserInfoService extends IService<UserInfo>{
     /**
      * 创建新的用户信息
      * @param userInfo 用户信息
-     * @return 创建后的用户信息
+     * @return Response
      */
-    UserInfo createUser(UserInfo userInfo);
+    Response<Map<String, Object>> registerUser(UserInfo userInfo);
 
-    /**
-     * 根据用户ID获取用户信息
-     * @param userId 用户ID
-     * @return 用户信息
-     */
-    UserInfo getUserById(Integer userId);
+    Response<List<Map<String, Object>>> getUser(int user_id);
 
+    Response<Map<String, Object>> updateUser(UserInfo userInfo);
 
-    UserInfo updateUser(UserInfo userInfo);
-    void deleteUser(int userId);
-    List<UserInfo> getUsersByCriteria(Map<String, Object> criteria);
-
+    Response<Map<String, Object>> login(Integer user_id, String password);
 }

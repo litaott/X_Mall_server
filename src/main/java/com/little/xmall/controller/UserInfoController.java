@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,8 +30,23 @@ public class UserInfoController {
      * @param
      * @return Response
      */
-    @PostMapping("/user")
-    public Response<Map<String, Object>> apply(@RequestBody UserInfo userInfo) {
-        return userInfoService.apply(userInfo);
+    @PostMapping("/user/register_user")
+    public Response<Map<String, Object>> registerUser(@RequestBody UserInfo userInfo) {
+        return userInfoService.registerUser(userInfo);
     }
+
+
+    @GetMapping("/get_user")
+    public Response<List<Map<String, Object>>> getUser(int user_id) {
+        return userInfoService.getUser(user_id);
+    }
+
+    @PostMapping("/user/update")
+    public Response<Map<String, Object>> updateUser(@RequestBody UserInfo userInfo) {
+        return userInfoService.updateUser(userInfo);
+    }
+
+
+
+
 }
