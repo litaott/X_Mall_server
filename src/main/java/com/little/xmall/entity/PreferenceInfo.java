@@ -1,6 +1,7 @@
 package com.little.xmall.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,10 @@ public class PreferenceInfo implements Serializable {
     private String pref_name;
     private String start_time;
     private String end_time;
+    @TableField(exist = false)
+    private float reduction;
+    @TableField(exist = false)
+    private float discount;
+    @TableField(exist = false)
+    private String gift;
 }
