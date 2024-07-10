@@ -1,7 +1,7 @@
 package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
-import com.little.xmall.entity.UserInfo;
+import com.little.xmall.entity.user.UserInfo;
 import com.little.xmall.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

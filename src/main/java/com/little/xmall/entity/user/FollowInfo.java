@@ -1,4 +1,4 @@
-package com.little.xmall.entity;
+package com.little.xmall.entity.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,17 +10,20 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 /**
- * 购物车实体类
+ * 关注实体类
  * @author Little
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("cart_info")
-public class CartInfo implements Serializable {
+@TableName("follow_info")
+public class FollowInfo implements Serializable {
     @TableId(value = "user_id")
     private Integer user_id;
-    @TableId(value = "goods_id")
-    private Integer goods_id;
+    @TableId(value = "store_id")
+    private Integer store_id;
+    private String goods_name;
+    private float price;
     private int quantity;
+
 }

@@ -2,7 +2,7 @@ package com.little.xmall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
-import com.little.xmall.entity.MessageInfo;
+import com.little.xmall.entity.message.MessageInfo;
 
 import java.util.List;
 import java.util.Map;

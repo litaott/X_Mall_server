@@ -1,4 +1,4 @@
-package com.little.xmall.entity;
+package com.little.xmall.entity.preference;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
