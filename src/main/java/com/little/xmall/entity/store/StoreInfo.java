@@ -1,20 +1,14 @@
-package com.little.xmall.entity;
+package com.little.xmall.entity.store;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.little.xmall.constant.Response;
-import com.little.xmall.entity.MessageInfo;
-import com.little.xmall.service.MessageService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
-import java.util.Map;
+
 /**
  * 商店信息实体类
  * @author Little

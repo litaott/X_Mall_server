@@ -1,7 +1,7 @@
-package com.little.xmall.mapper;
+package com.little.xmall.mapper.order;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.little.xmall.entity.OrderInfo;
+import com.little.xmall.entity.order.OrderInfo;
 
 /**
  * 订单映射器类

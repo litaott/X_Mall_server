@@ -1,7 +1,7 @@
-package com.little.xmall.mapper;
+package com.little.xmall.mapper.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.little.xmall.entity.AddressInfo;
+import com.little.xmall.entity.user.AddressInfo;
 
 /**
  * 用户信息Mapper

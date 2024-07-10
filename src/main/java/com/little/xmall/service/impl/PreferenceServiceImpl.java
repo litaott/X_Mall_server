@@ -5,13 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
-import com.little.xmall.entity.PreferenceInfo;
-import com.little.xmall.mapper.PreferenceMapper;
+import com.little.xmall.entity.preference.PreferenceInfo;
+import com.little.xmall.mapper.preference.PreferenceMapper;
 import com.little.xmall.service.PreferenceService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

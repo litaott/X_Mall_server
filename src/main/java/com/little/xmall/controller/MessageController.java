@@ -1,7 +1,7 @@
 package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
-import com.little.xmall.entity.MessageInfo;
+import com.little.xmall.entity.message.MessageInfo;
 import com.little.xmall.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

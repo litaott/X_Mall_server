@@ -1,7 +1,7 @@
 package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
-import com.little.xmall.entity.PreferenceInfo;
+import com.little.xmall.entity.preference.PreferenceInfo;
 import com.little.xmall.service.PreferenceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

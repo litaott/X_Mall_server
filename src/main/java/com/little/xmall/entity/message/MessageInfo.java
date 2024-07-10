@@ -1,4 +1,4 @@
-package com.little.xmall.entity;
+package com.little.xmall.entity.message;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

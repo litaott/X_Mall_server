@@ -1,7 +1,7 @@
-package com.little.xmall.mapper;
+package com.little.xmall.mapper.message;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.little.xmall.entity.MessageInfo;
+import com.little.xmall.entity.message.MessageInfo;
 
 /**
  * 消息映射器类
