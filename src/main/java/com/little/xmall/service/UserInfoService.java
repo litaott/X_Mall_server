@@ -2,7 +2,10 @@ package com.little.xmall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
+import com.little.xmall.entity.user.AddressInfo;
+import com.little.xmall.entity.user.CartInfo;
 import com.little.xmall.entity.user.UserInfo;
+
 
 import java.util.Map;
 import java.util.List;
@@ -25,4 +28,13 @@ public interface UserInfoService extends IService<UserInfo>{
     Response<Map<String, Object>> updateUser(UserInfo userInfo);
 
     Response<Map<String, Object>> login(Integer user_id, String password);
+
+    Response<Map<String, Object>> addAddress(AddressInfo addressInfo);
+    Response<Map<String, Object>> updateAddress(AddressInfo addressInfo);
+
+
+    Response<String> deleteAddress(Integer address_id);
+
+
+    Response<Map<String, Object>> addCart(CartInfo cartInfo);
 }
