@@ -11,3 +11,4 @@ import com.little.xmall.entity.user.AddressInfo;
 public interface AddressInfoMapper extends BaseMapper<AddressInfo> {
 
 }
+

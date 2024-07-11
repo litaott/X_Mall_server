@@ -2,6 +2,7 @@ package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.user.UserInfo;
+import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,22 @@ public class UserInfoController {
         return userInfoService.updateUser(userInfo);
     }
 
-
-
-
+    @PostMapping("/user/login")
+    public Response<Map<String, Object>> login(@RequestBody Map<String, String> userInfo) {
+        Integer userId = Integer.parseInt(userInfo.get("user_id"));
+        String password = userInfo.get("password");
+        return userInfoService.login(userId, password);
+    }
+    @PostMapping("/user/add_address")
+    public Response<Map<String, Object>> addAddress(@RequestBody AddressInfo addressInfo) {
+        return userInfoService.addAddress(addressInfo);
+    }
+    @PostMapping("/user/update_address")
+    public Response<Map<String, Object>> updateAddress(@RequestBody AddressInfo addressInfo) {
+        return userInfoService.updateAddress(addressInfo);
+    }
+    @DeleteMapping("/user/delete_address")
+    public Response<String> deleteAddress(@RequestParam Integer address_id) {
+            return userInfoService.deleteAddress(address_id);
+    }
 }
