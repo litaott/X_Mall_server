@@ -5,8 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
+import com.little.xmall.entity.preference.DiscountInfo;
+import com.little.xmall.entity.preference.GiftInfo;
 import com.little.xmall.entity.preference.PreferenceInfo;
+import com.little.xmall.entity.preference.ReductionInfo;
+import com.little.xmall.mapper.preference.DiscountMapper;
+import com.little.xmall.mapper.preference.GiftMapper;
 import com.little.xmall.mapper.preference.PreferenceMapper;
+import com.little.xmall.mapper.preference.ReductionMapper;
 import com.little.xmall.service.PreferenceService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
@@ -28,32 +34,30 @@ import java.util.Map;
 public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, PreferenceInfo> implements PreferenceService {
 
     private final PreferenceMapper preferenceMapper;
+    private final DiscountMapper discountMapper;
+    private final ReductionMapper reductionMapper;
+    private final GiftMapper giftMapper;
 
     @Override
     public Response<List<Map<String, Object>>> get_preference_info(int goods_id) {
+
+        // 查询优惠信息
         LambdaQueryWrapper<PreferenceInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(PreferenceInfo::getGoods_id, goods_id);
         List<PreferenceInfo> list = preferenceMapper.selectObjs(queryWrapper);
 
-        if (list.size() == 0)
+        // 优惠信息为空
+        if (list.isEmpty())
             return Response.success(ResponseCode.PREFERENCE_GET_SUCCESS, null);
 
+        // 添加具体优惠信息
         for (PreferenceInfo pref:list) {
             String category = pref.getCategory();
             int pref_id = pref.getPref_id();
             switch (category) {
-                case "打折" -> {
-                    float discount = preferenceMapper.getDiscount(pref_id);
-                    pref.setDiscount(discount);
-                }
-                case "降价" -> {
-                    float reduction = preferenceMapper.getReduction(pref_id);
-                    pref.setReduction(reduction);
-                }
-                case "赠品" -> {
-                    String gift = preferenceMapper.getGift(pref_id);
-                    pref.setGift(gift);
-                }
+                case "打折" -> pref.setDiscount(discountMapper.selectById(pref_id).getDiscount());
+                case "降价" -> pref.setReduction(reductionMapper.selectById(pref_id).getReduction());
+                case "赠品" -> pref.setGift(giftMapper.selectById(pref_id).getGift());
             }
         }
 
@@ -63,23 +67,37 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
     @Override
     public Response<Map<String, Object>> add_preference(PreferenceInfo preferenceInfo) {
 
+        // 参数为空
         if (preferenceInfo == null)
             return Response.error(ResponseCode.FAIL, null);
 
-        preferenceMapper.insert(preferenceInfo);
-
+        // 添加具体优惠信息
         String category = preferenceInfo.getCategory();
         switch (category) {
             case "打折" -> {
+                DiscountInfo discountInfo = new DiscountInfo();
+                discountInfo.setDiscount(preferenceInfo.getDiscount());
+                discountMapper.insert(discountInfo);
+                preferenceInfo.setPref_id(discountInfo.getDiscount_id());
             }
             case "降价" -> {
+                ReductionInfo reductionInfo = new ReductionInfo();
+                reductionInfo.setReduction(preferenceInfo.getReduction());
+                reductionMapper.insert(reductionInfo);
+                preferenceInfo.setPref_id(reductionInfo.getReduction_id());
             }
             case "赠品" -> {
+                GiftInfo giftInfo = new GiftInfo();
+                giftInfo.setGift(preferenceInfo.getGift());
+                giftMapper.insert(giftInfo);
+                preferenceInfo.setPref_id(giftInfo.getGift_id());
             }
         }
+
+        // 添加优惠信息
+        preferenceMapper.insert(preferenceInfo);
 
         int id = preferenceInfo.getPreference_id();
         return Response.success(ResponseCode.PREFERENCE_ADD_SUCCESS, Map.of("preference_id",id));
     }
-
 }

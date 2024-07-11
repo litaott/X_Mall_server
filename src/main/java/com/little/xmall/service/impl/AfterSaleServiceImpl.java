@@ -30,48 +30,66 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
 
     @Override
     public Response<Map<String, Object>> apply(AfterSaleInfo afterSaleInfo) {
-        // 请求信息为空
+
+        // 参数为空
         if (afterSaleInfo == null)
             return Response.error(ResponseCode.FAIL, null);
+
+        // 插入售后订单
         afterSaleMapper.insert(afterSaleInfo);
+
         int id = afterSaleInfo.getAfter_sale_id();
         return Response.success(ResponseCode.AFTER_SALE_APPLY_SUCCESS, Map.of("after_sale_id",id));
     }
 
     @Override
     public Response<Map<String, Object>> handle(AfterSaleInfo afterSaleInfo) {
-        // 请求信息为空
+
+        // 参数为空
         if (afterSaleInfo == null || afterSaleInfo.getAfter_sale_id() == null)
             return Response.error(ResponseCode.AFTER_SALE_NOT_EXIST, null);
+
         // 查询售后订单
         AfterSaleInfo a = afterSaleMapper.selectById(afterSaleInfo.getAfter_sale_id());
+
         // 售后订单不存在
         if (a == null)
             return Response.error(ResponseCode.AFTER_SALE_NOT_EXIST, null);
+
         // 售后订单已完成
         if (a.getIs_finished().equals("已完成"))
             return Response.error(ResponseCode.AFTER_SALE_ALREADY_HANDLE, null);
+
         // 更新售后订单
         a.setResult(afterSaleInfo.getResult());
         a.setIs_finished("已完成");
         afterSaleMapper.updateById(a);
+
         int id = a.getAfter_sale_id();
         return Response.success(ResponseCode.AFTER_SALE_HANDLE_SUCCESS, Map.of("after_sale_id",id));
     }
 
     @Override
     public Response<List<Map<String, Object>>> get_user_after_sale(int user_id) {
+
         LambdaQueryWrapper<AfterSaleInfo> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 获取用户售后订单
         queryWrapper.eq(AfterSaleInfo::getUser_id, user_id);
         List<Map<String, Object>> list = afterSaleMapper.selectMaps(queryWrapper);
+
         return Response.success(ResponseCode.AFTER_SALE_USER_GET_SUCCESS, list);
     }
 
     @Override
     public Response<List<Map<String, Object>>> get_store_after_sale(int store_id) {
+
         LambdaQueryWrapper<AfterSaleInfo> queryWrapper = new LambdaQueryWrapper<>();
+
+        // 获取店铺售后订单
         queryWrapper.eq(AfterSaleInfo::getStore_id, store_id);
         List<Map<String, Object>> list = afterSaleMapper.selectMaps(queryWrapper);
-        return Response.success(ResponseCode.AFTER_SALE_USER_GET_SUCCESS, list);
+
+        return Response.success(ResponseCode.AFTER_SALE_STORE_GET_SUCCESS, list);
     }
 }
