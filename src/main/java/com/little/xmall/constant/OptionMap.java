@@ -17,7 +17,7 @@ public class OptionMap {
             PAY_WAY,            // 支付方式，0:支付宝 1:微信 2:余额
             ORDER_STATUS,       // 订单状态，0:待付款 1:待发货 2:待收货 3:待完成 4:已完成
             AFTER_SALE_CATEGORY,// 售后类型，0:退货退款 1:换货 2:仅退款
-            AFTER_SALE_RESULT,  // 售后处理结果，0:同意申请 1:拒绝申请
+            AFTER_SALE_RESULT,  // 售后结果，0:同意申请 1:拒绝申请
             PREFERENCE_TYPE;    // 优惠类型，0:降价 1:折扣 2:赠品
 
     static {
