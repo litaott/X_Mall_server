@@ -17,13 +17,13 @@ create table user_info
         comment '电话号码',
     avatar        varchar(1023)
         comment '头像',
-    gender        int                 not null default 0
+    gender_index  int                 not null default 0
         comment '用户性别，0:未知 1:男 2:女',
     age           int
         comment '年龄',
     follow_number int                 not null default 0
         comment '关注店铺数',
-    role          int                 not null default 0
+    role_index    int                 not null default 0
         comment '用户角色，0:普通用户 1:管理员',
     create_time   datetime            not null
         comment '注册时间',
@@ -45,7 +45,7 @@ create table address_info
         comment '收货人号码',
     is_default   boolean      not null default true
         comment '默认标记',
-    label        int
+    label_index  int
         comment '地址标签，0:家 1:学校 2:公司'
 ) comment '地址信息表' charset = utf8;
 
@@ -99,7 +99,7 @@ create table goods_info
         comment '库存量',
     sale_number    int         not null default 0
         comment '当前销量',
-    category_id    int         not null default 0
+    category_index int         not null default 0
         comment '商品类别，0:数码产品 1:家用电器',
     create_time    datetime    not null
         comment '上架时间',
@@ -173,29 +173,29 @@ create database db_XMall_order;
 use db_XMall_order;
 create table order_info
 (
-    order_id     int   not null primary key auto_increment
+    order_id      int   not null primary key auto_increment
         comment '订单id',
-    user_id      int   not null
+    user_id       int   not null
         comment '买家id',
-    store_id     int   not null
+    store_id      int   not null
         comment '店铺id',
-    total_price  float not null
+    total_price   float not null
         comment '总价格',
-    trans_price  float not null default 0
+    trans_price   float not null default 0
         comment '运费',
-    pay_time     datetime
+    pay_time      datetime
         comment '支付时间',
-    pay_way      int
+    pay_way_index int
         comment '支付方式，0:支付宝 1:微信 2:余额',
-    send_time    datetime
+    send_time     datetime
         comment '发货时间',
-    receive_time datetime
+    receive_time  datetime
         comment '收货时间',
-    finish_time  datetime
+    finish_time   datetime
         comment '订单完成时间',
-    address_id   int
+    address_id    int
         comment '收货地址id',
-    status       int   not null default 0
+    status_index  int   not null default 0
         comment '订单状态，0:待付款 1:待发货 2:待收货 3:待完成 4:已完成'
 ) comment '订单信息表' charset = utf8;
 
@@ -237,27 +237,27 @@ create database db_XMall_after_sale;
 use db_XMall_after_sale;
 create table after_sale_info
 (
-    after_sale_id int      not null primary key auto_increment
+    after_sale_id  int      not null primary key auto_increment
         comment '售后订单id',
-    user_id       int      not null
+    user_id        int      not null
         comment '用户id',
-    store_id      int      not null
+    store_id       int      not null
         comment '店铺id',
-    order_id      int      not null
+    order_id       int      not null
         comment '订单id',
-    goods_id      int      not null
+    goods_id       int      not null
         comment '商品id',
-    category      int      not null
+    category_index int      not null
         comment '售后类型，0:退货退款 1:换货 2:仅退款',
-    reason        varchar(255)
+    reason         varchar(255)
         comment '申请售后原因',
-    result        int
+    result_index   int
         comment '售后处理结果，0:同意申请 1:拒绝申请',
-    start_time    datetime not null
+    start_time     datetime not null
         comment '开始时间',
-    finish_time   datetime
+    finish_time    datetime
         comment '结束时间',
-    is_finish     boolean  not null default false
+    is_finish      boolean  not null default false
         comment '完成标记'
 ) comment '售后信息表' charset = utf8;
 
@@ -266,19 +266,19 @@ create database db_XMall_preference;
 use db_XMall_preference;
 create table preference_info
 (
-    preference_id int      not null primary key auto_increment
+    preference_id  int      not null primary key auto_increment
         comment '优惠方案id',
-    goods_id      int      not null
+    goods_id       int      not null
         comment '所属商品id',
-    category      int      not null
+    category_index int      not null
         comment '优惠类型，0:降价 1:折扣 2:赠品',
-    pref_id       int      not null
+    pref_id        int      not null
         comment '优惠力度id',
-    start_time    datetime not null
+    start_time     datetime not null
         comment '开始时间',
-    end_time      datetime not null
+    end_time       datetime not null
         comment '结束时间',
-    pref_name     varchar(255)
+    pref_name      varchar(255)
         comment '优惠活动名称'
 ) comment '优惠信息表' charset = utf8;
 
