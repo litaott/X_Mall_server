@@ -108,9 +108,8 @@ create table goods_info
     transportation varchar(20)
         comment '运输方式',
     trans_price    decimal(10, 2) not null default 0
-        comment '运费',
-    is_delete      boolean        not null default false
-        comment '删除标记'
+        comment '运费'
+
 ) comment '商品信息表' charset = utf8;
 
 create table comment_info
@@ -133,7 +132,7 @@ create table goods_image_info
         comment '商品图片id',
     goods_id  int not null
         comment '所属商品id',
-    image_url int not null
+    image_url varchar(1023) not null
         comment '图片路径'
 ) comment '商品图片信息表' charset = utf8;
 

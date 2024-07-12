@@ -37,7 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     private final FollowInfoMapper followInfoMapper;
 
     @Override
-    public Response<Map<String, Object>> registerUser(UserInfo userInfo) {
+    public Response<Map<String, Object>> registerUser(UserInfo userInfo) {//测试完成
         if (!userInfoMapper.selectByMap(Map.of("phone_number", userInfo.getPhone_number())).isEmpty()) {
             return Response.error(ResponseCode.USER_EXIST, null);
         } else {
@@ -55,7 +55,6 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     @Override
     public Response<Map<String, Object>> updateUser(UserInfo userInfo) {
         int result = userInfoMapper.updateById(userInfo);
-
         if (result > 0) {
             return Response.success(ResponseCode.SUCCESS, null);
         } else {
@@ -65,26 +64,38 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     }
 
     @Override
-    public Response<Map<String, Object>> login(Integer user_id, String password) {
+    public Response<Map<String, Object>> login(Integer user_id, String password) {//测试完成
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user_id).eq("password", password);
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
-
-        if (userInfo != null) {
-            return Response.success(ResponseCode.STORE_SIGN_IN_SUCCESS, null);
+        UserInfo userid=userInfoMapper.selectById(user_id);
+        if (userid == null) {
+            return Response.error(ResponseCode.USER_NOT_EXIST, null);
         } else {
+            if(userInfo !=null){
+                return  Response.success(ResponseCode.USER_SIGN_IN_SUCCESS,null);
+            }
+            else{
             return Response.error(ResponseCode.USER_PASSWORD_ERROR, null);
         }
+        }
+    }
+    @Override
+    public Response<String> deleteUser(int user_id){//测试完成
+        userInfoMapper.deleteById(user_id);
+        QueryWrapper<AddressInfo> queryWrapper = new QueryWrapper<>();
+        addressInfoMapper.delete(queryWrapper.eq("user_id",user_id));
+        return Response.success(ResponseCode.SUCCESS,null);
     }
 
     @Override
-    public Response<Map<String, Object>> addAddress(AddressInfo addressInfo) {
+    public Response<Map<String, Object>> addAddress(AddressInfo addressInfo) {//测试完成
         addressInfoMapper.insert(addressInfo);
         return Response.success(ResponseCode.SUCCESS, Map.of("address_id", addressInfo.getAddress_id()));
     }
 
     @Override
-    public Response<Map<String, Object>> updateAddress(AddressInfo addressInfo) {
+    public Response<Map<String, Object>> updateAddress(AddressInfo addressInfo) {//测试完成
         int result = addressInfoMapper.updateById(addressInfo);
 
         if (result > 0) {
@@ -96,12 +107,13 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     }
 
     @Override
-    public Response<String> deleteAddress(Integer address_id) {
-        addressInfoMapper.deleteById(address_id);;
+    public Response<String> deleteAddress(Integer address_id) {//测试完成
+        addressInfoMapper.deleteById(address_id);
         return Response.success(ResponseCode.SUCCESS, null);
     }
     @Override
     public Response<Map<String, Object>> addCart(CartInfo cartInfo) {
+
         cartInfoMapper.insert(cartInfo);
         return Response.success(ResponseCode.SUCCESS,null);
     }

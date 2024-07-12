@@ -1,7 +1,6 @@
-package com.little.xmall.entity.user;
+package com.little.xmall.entity.goods;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -10,17 +9,19 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 /**
- * 购物车实体类
+ * 商品图片实体类
  * @author Little
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("cart_info")
-public class CartInfo implements Serializable {
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer user_id;
-    private Integer goods_id;
-    private int quantity;
+@TableName("goods_image_info")
+public class GoodsImageInfo {
+    @TableId(value = "goods_image_id", type = IdType.AUTO)
+    private Integer goods_image_id;
+    private int goods_id;
+    private String image_url;
 }

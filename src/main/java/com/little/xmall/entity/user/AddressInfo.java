@@ -1,8 +1,10 @@
 package com.little.xmall.entity.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.little.xmall.constant.OptionMap;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,23 +20,23 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("address_info")
 public class AddressInfo implements Serializable {
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @TableId(value = "address_id", type = IdType.AUTO)
     private Integer address_id;
     private int user_id;
     private String address;
     private String receiver;
     private String phone_number;
-    private int is_default;
-//    private enum label {
-//        HOME("家"),SCHOOL("学校"),COMPANY("公司");
-//        private String description;
-//
-//        label(String description) {
-//            this.description = description;
-//        }
-//
-//        public String getDescription() {
-//            return description;
-//        }
-//    }
+    private Boolean is_default;
+    private int label_index;
+    @TableField(exist = false)
+    private String label;
+    public void setLabel(String label) {
+        this.label = label;
+        this.label_index = OptionMap.ADDRESS_LABEL.getInt(label);
+    }
+    public void setLabel_index(int label_index){
+        this.label=OptionMap.ADDRESS_LABEL.getStr(label_index);
+        this.label_index=label_index;
+    }
+
 }

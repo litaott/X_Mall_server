@@ -22,7 +22,7 @@ import java.util.Map;
 @RequestMapping("/goods")
 public class GoodsController {
     private final GoodsService goodsService;
-    @PostMapping("/user/register_user")
+    @PostMapping("/register_goods")
     public Response<Map<String, Object>> registerGoods(@RequestBody GoodsInfo goodsInfo) {
         return goodsService.registerGoods(goodsInfo);
     }

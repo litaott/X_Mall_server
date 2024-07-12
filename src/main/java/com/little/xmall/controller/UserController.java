@@ -44,26 +44,30 @@ public class UserController {
         return userService.getUser(user_id);
     }
 
-    @PostMapping("/user/update")
+    @PutMapping("/update_user")
     public Response<Map<String, Object>> updateUser(@RequestBody UserInfo userInfo) {
         return userService.updateUser(userInfo);
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public Response<Map<String, Object>> login(@RequestBody Map<String, String> userInfo) {
         Integer userId = Integer.parseInt(userInfo.get("user_id"));
         String password = userInfo.get("password");
         return userService.login(userId, password);
     }
-    @PostMapping("/user/add_address")
+    @DeleteMapping("/delete_user")
+    public Response<String> deleteUser(@RequestParam int user_id){
+        return userService.deleteUser(user_id);
+    }
+    @PostMapping("/add_address")
     public Response<Map<String, Object>> addAddress(@RequestBody AddressInfo addressInfo) {
         return userService.addAddress(addressInfo);
     }
-    @PostMapping("/user/update_address")
+    @PutMapping("/update_address")
     public Response<Map<String, Object>> updateAddress(@RequestBody AddressInfo addressInfo) {
         return userService.updateAddress(addressInfo);
     }
-    @DeleteMapping("/user/delete_address")
+    @DeleteMapping("/delete_address")
     public Response<String> deleteAddress(@RequestParam Integer address_id) {
             return userService.deleteAddress(address_id);
     }
