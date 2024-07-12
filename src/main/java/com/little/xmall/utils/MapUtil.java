@@ -1,7 +1,6 @@
 package com.little.xmall.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,9 +22,7 @@ public class MapUtil {
      */
     public static <T> Map<String, Object> getMap (T obj){
         String jsonString = JSON.toJSONString(obj);
-        System.out.println("json语句:" + jsonString);
         TypeReference<Map<String, Object>> typeReference = new TypeReference<>() {};
-        System.out.println("map语句:" + JSON.parseObject(jsonString, typeReference));
         return JSON.parseObject(jsonString, typeReference);
     }
 

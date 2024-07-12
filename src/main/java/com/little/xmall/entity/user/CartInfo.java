@@ -1,6 +1,7 @@
 package com.little.xmall.entity.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("cart_info")
 public class CartInfo implements Serializable {
-    @TableId(value = "user_id")
     private Integer user_id;
-    @TableId(value = "goods_id")
     private Integer goods_id;
     private int quantity;
 }

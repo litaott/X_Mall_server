@@ -11,7 +11,7 @@ create table user_info
         comment '用户名',
     is_login      boolean             not null default false
         comment '登录状态',
-    balance       float               not null default 0
+    balance       decimal(10, 2)      not null default 0
         comment '余额',
     phone_number  varchar(20)         not null
         comment '电话号码',
@@ -87,29 +87,29 @@ create database db_XMall_goods;
 use db_XMall_goods;
 create table goods_info
 (
-    goods_id       int         not null primary key auto_increment
+    goods_id       int            not null primary key auto_increment
         comment '商品id',
-    store_id       int         not null
+    store_id       int            not null
         comment '所属店铺id',
-    goods_name     varchar(20) not null
+    goods_name     varchar(20)    not null
         comment '商品名称',
-    price          float       not null
+    price          decimal(10, 2) not null
         comment '单价',
-    quantity       int         not null
+    quantity       int            not null
         comment '库存量',
-    sale_number    int         not null default 0
+    sale_number    int            not null default 0
         comment '当前销量',
-    category_index int         not null default 0
+    category_index int            not null default 0
         comment '商品类别，0:数码产品 1:家用电器',
-    create_time    datetime    not null
+    create_time    datetime       not null
         comment '上架时间',
     insurance      varchar(255)
         comment '售后标准',
     transportation varchar(20)
         comment '运输方式',
-    trans_price    float       not null default 0
+    trans_price    decimal(10, 2) not null default 0
         comment '运费',
-    is_delete      boolean     not null default false
+    is_delete      boolean        not null default false
         comment '删除标记'
 ) comment '商品信息表' charset = utf8;
 
@@ -142,29 +142,29 @@ create database db_XMall_store;
 use db_XMall_store;
 create table store_info
 (
-    store_id     int         not null primary key auto_increment
+    store_id     int            not null primary key auto_increment
         comment '店铺id',
-    store_name   varchar(10) not null
+    store_name   varchar(10)    not null
         comment '店铺名称',
-    password     varchar(20) not null
+    password     varchar(20)    not null
         comment '密码',
-    owner_name   varchar(10) not null
+    owner_name   varchar(10)    not null
         comment '经营者姓名',
-    phone_number varchar(20) not null
+    phone_number varchar(20)    not null
         comment '经营者号码',
-    credit_id    varchar(20) not null
+    credit_id    varchar(20)    not null
         comment '经营者身份信息',
-    reputation   float       not null default 5.0
+    reputation   decimal(2, 1)  not null default 5.0
         comment '店铺评级',
-    revenue      float       not null default 0
+    revenue      decimal(10, 2) not null default 0
         comment '店铺总营收',
-    fans_number  int         not null default 0
+    fans_number  int            not null default 0
         comment '粉丝数',
     image        varchar(255)
         comment '展示图片',
-    create_time  datetime    not null
+    create_time  datetime       not null
         comment '创建时间',
-    is_delete    boolean     not null default false
+    is_delete    boolean        not null default false
         comment '删除标记'
 ) comment '店铺信息表' charset = utf8;
 
@@ -173,15 +173,15 @@ create database db_XMall_order;
 use db_XMall_order;
 create table order_info
 (
-    order_id      int   not null primary key auto_increment
+    order_id      int            not null primary key auto_increment
         comment '订单id',
-    user_id       int   not null
+    user_id       int            not null
         comment '买家id',
-    store_id      int   not null
+    store_id      int            not null
         comment '店铺id',
-    total_price   float not null
+    total_price   decimal(10, 2) not null
         comment '总价格',
-    trans_price   float not null default 0
+    trans_price   decimal(10, 2) not null default 0
         comment '运费',
     pay_time      datetime
         comment '支付时间',
@@ -195,21 +195,21 @@ create table order_info
         comment '订单完成时间',
     address_id    int
         comment '收货地址id',
-    status_index  int   not null default 0
+    status_index  int            not null default 0
         comment '订单状态，0:待付款 1:待发货 2:待收货 3:待完成 4:已完成'
 ) comment '订单信息表' charset = utf8;
 
 create table order_item_info
 (
-    order_item_id int   not null primary key auto_increment
+    order_item_id int            not null primary key auto_increment
         comment '订单详情id',
-    order_id      int   not null
+    order_id      int            not null
         comment '所属订单id',
-    goods_id      int   not null
+    goods_id      int            not null
         comment '商品id',
-    price         float not null
+    price         decimal(10, 2) not null
         comment '商品单价',
-    quantity      int   not null
+    quantity      int            not null
         comment '商品数量'
 ) comment '订单商品信息表' charset = utf8;
 
@@ -284,17 +284,17 @@ create table preference_info
 
 create table reduction_info
 (
-    id        int   not null primary key auto_increment
+    id        int            not null primary key auto_increment
         comment '降价id',
-    reduction float not null
+    reduction decimal(10, 2) not null
         comment '降价金额'
 ) comment '降价信息表' charset = utf8;
 
 create table discount_info
 (
-    id       int   not null primary key auto_increment
+    id       int           not null primary key auto_increment
         comment '折扣id',
-    discount float not null
+    discount decimal(2, 1) not null
         comment '折扣系数'
 ) comment '折扣信息表' charset = utf8;
 
