@@ -5,7 +5,7 @@ import com.little.xmall.constant.Response;
 import com.little.xmall.entity.store.StoreInfo;
 
 import java.util.Map;
-public interface StoreInfoService extends IService<StoreInfo>{
+public interface StoreService extends IService<StoreInfo>{
     Response<Map<String, Object>> registerStore(StoreInfo storeInfo);
 
     Response<Map<String, Object>> updateStore(StoreInfo storeInfo);

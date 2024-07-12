@@ -18,9 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("cart_info")
 public class CartInfo implements Serializable {
-    @TableId(value = "user_id")
     private Integer user_id;
-    @TableId(value = "goods_id")
     private Integer goods_id;
     private int quantity;
 }

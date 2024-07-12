@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.little.xmall.constant.OptionMap;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,28 +20,34 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("user_info")
-public class UserInfo implements Serializable{
+public class UserInfo implements Serializable {
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer user_id;
     private String password;
     private String username;
-    private int is_login;
+    private Boolean is_login;
     private float balance;
     private String phone_number;
     private String avatar;
-    private int gender;
+    private int gender_index;
     private int age;
     private int follow_number;
-//    private enum role {
-//        USER("用户"), ADMINISTRATOR("管理员");
-//        private String description;
-//
-//        role(String description) {
-//            this.description = description;
-//        }
-//    }
+    private int role_index;
     private String create_time;
-    private int del_flag;
+    private Boolean is_delete;
+    @TableField(exist = false)
+    private String gender;
+    @TableField(exist = false)
+    private String role;
+
+    public void setGender(String gender) {
+        this.gender = gender;
+        this.gender_index = OptionMap.USER_GENDER.getInt(gender);
+    }
+    public void serGender_index(int gender_index){
+        this.gender=OptionMap.USER_GENDER.getStr(gender_index);
+        this.gender_index=gender_index;
+    }
 
 
 }
