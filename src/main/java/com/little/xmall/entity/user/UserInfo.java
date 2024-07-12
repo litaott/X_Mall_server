@@ -34,7 +34,6 @@ public class UserInfo implements Serializable {
     private int follow_number;
     private int role_index;
     private String create_time;
-    private Boolean is_delete;
     @TableField(exist = false)
     private String gender;
     @TableField(exist = false)
@@ -44,9 +43,17 @@ public class UserInfo implements Serializable {
         this.gender = gender;
         this.gender_index = OptionMap.USER_GENDER.getInt(gender);
     }
-    public void serGender_index(int gender_index){
+    public void setGender_index(int gender_index){
         this.gender=OptionMap.USER_GENDER.getStr(gender_index);
         this.gender_index=gender_index;
+    }
+    public void setRole(String role) {
+        this.role = gender;
+        this.role_index = OptionMap.USER_ROLE.getInt(role);
+    }
+    public void setRole_index(int role_index){
+        this.role=OptionMap.USER_ROLE.getStr(role_index);
+        this.role_index=role_index;
     }
 
 

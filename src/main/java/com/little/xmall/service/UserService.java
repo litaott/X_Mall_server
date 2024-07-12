@@ -30,7 +30,11 @@ public interface UserService extends IService<UserInfo>{
 
     Response<Map<String, Object>> login(Integer user_id, String password);
 
+
+    Response<String> deleteUser(int user_id);
+
     Response<Map<String, Object>> addAddress(AddressInfo addressInfo);
+
     Response<Map<String, Object>> updateAddress(AddressInfo addressInfo);
 
 

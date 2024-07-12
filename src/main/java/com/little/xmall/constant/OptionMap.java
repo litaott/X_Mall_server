@@ -35,9 +35,10 @@ public class OptionMap {
 
         //地址标签
         ADDRESS_LABEL = new BiMapUtil();
-        ADDRESS_LABEL.put(0, "家");
+        ADDRESS_LABEL.put(0, "无标签");
         ADDRESS_LABEL.put(1, "学校");
         ADDRESS_LABEL.put(2, "公司");
+        ADDRESS_LABEL.put(3,"家");
 
         //商品分类
         GOODS_CATEGORY = new BiMapUtil();
