@@ -25,5 +25,5 @@ public class MessageInfo implements Serializable {//序列化、反序列化数�
     private int receiver_id;
     private String message;
     private String time;
-    private String is_read;
+    private Boolean is_read;
 }

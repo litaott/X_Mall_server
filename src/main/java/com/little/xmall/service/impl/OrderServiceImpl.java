@@ -49,6 +49,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
             orderItemInfoMapper.insert(itemInfo);
         }
 
+        OrderInfo o = orderInfoMapper.selectById(orderInfo.getOrder_id());
+        System.out.println(o.getTotal_price());
+        System.out.println(o.getTrans_price());
+
         return Response.success(ResponseCode.ORDER_CREATE_SUCCESS, Map.of("order_id", orderInfo.getOrder_id()));
     }
 
@@ -87,18 +91,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         }
 
         // 订单状态判断
-        String status = o.getStatus();
-        switch (status) {
+        int status_index = o.getStatus_index();
+        switch (status_index) {
             // 订单支付成功
-            case "未支付" -> {
-                o.setStatus("待发货");
+            case 0 -> {
+                o.setStatus_index(1);
                 o.setPay_time(orderInfo.getPay_time());
                 o.setPay_way(orderInfo.getPay_way());
                 orderInfoMapper.updateById(o);
                 return Response.success(ResponseCode.ORDER_PAY_SUCCESS, Map.of("order_id", o.getOrder_id()));
             }
             // 订单已支付（失败）
-            case "待发货", "运输中", "已到货", "已完成" -> {
+            case 1,2,3,4 -> {
                 return Response.error(ResponseCode.ORDER_ALREADY_PAY, null);
             }
             default -> {
@@ -119,21 +123,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         }
 
         // 订单状态判断
-        String status = o.getStatus();
-        switch (status) {
+        int status_index = o.getStatus_index();
+        switch (status_index) {
             // 订单未支付（失败）
-            case "未支付" -> {
+            case 0 -> {
                 return Response.error(ResponseCode.ORDER_NOT_PAY, null);
             }
             // 订单发货成功
-            case "待发货" -> {
-                o.setStatus("运输中");
+            case 1 -> {
+                o.setStatus_index(2);
                 o.setSend_time(orderInfo.getSend_time());
                 orderInfoMapper.updateById(o);
                 return Response.success(ResponseCode.ORDER_SEND_SUCCESS, Map.of("order_id", o.getOrder_id()));
             }
             // 订单已发货（失败）
-            case "运输中", "已到货", "已完成" -> {
+            case 2, 3, 4 -> {
                 return Response.error(ResponseCode.ORDER_ALREADY_SEND, null);
             }
             default -> {
@@ -154,21 +158,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         }
 
         // 订单状态判断
-        String status = o.getStatus();
-        switch (status) {
+        int status_index = o.getStatus_index();
+        switch (status_index) {
             // 订单未发货（失败）
-            case "未支付", "待发货" -> {
+            case 0, 1 -> {
                 return Response.error(ResponseCode.ORDER_NOT_SEND, null);
             }
             // 订单到货成功
-            case "运输中" -> {
-                o.setStatus("已到货");
+            case 2 -> {
+                o.setStatus_index(3);
                 o.setReceive_time(orderInfo.getReceive_time());
                 orderInfoMapper.updateById(o);
                 return Response.success(ResponseCode.ORDER_RECEIVE_SUCCESS, Map.of("order_id", o.getOrder_id()));
             }
             // 订单已到货（失败）
-            case "已到货", "已完成" -> {
+            case 3, 4 -> {
                 return Response.error(ResponseCode.ORDER_ALREADY_RECEIVE, null);
             }
             default -> {
@@ -189,21 +193,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         }
 
         // 订单状态判断
-        String status = o.getStatus();
-        switch (status) {
+        int status_index = o.getStatus_index();
+        switch (status_index) {
             // 订单未到货（失败）
-            case "未支付", "待发货", "运输中" -> {
+            case 0, 1, 2 -> {
                 return Response.error(ResponseCode.ORDER_NOT_RECEIVE, null);
             }
             // 订单完成成功
-            case "已到货" -> {
-                o.setStatus("已完成");
+            case 3 -> {
+                o.setStatus_index(4);
                 o.setFinish_time(orderInfo.getFinish_time());
                 orderInfoMapper.updateById(o);
                 return Response.success(ResponseCode.ORDER_FINISH_SUCCESS, Map.of("order_id", o.getOrder_id()));
             }
             // 订单已完成（失败）
-            case "已完成" -> {
+            case 4 -> {
                 return Response.error(ResponseCode.ORDER_ALREADY_FINISH, null);
             }
             default -> {

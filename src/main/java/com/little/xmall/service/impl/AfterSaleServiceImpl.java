@@ -47,7 +47,7 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
 
         // 参数为空
         if (afterSaleInfo == null || afterSaleInfo.getAfter_sale_id() == null)
-            return Response.error(ResponseCode.AFTER_SALE_NOT_EXIST, null);
+            return Response.error(ResponseCode.FAIL, null);
 
         // 查询售后订单
         AfterSaleInfo a = afterSaleMapper.selectById(afterSaleInfo.getAfter_sale_id());
@@ -57,12 +57,12 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
             return Response.error(ResponseCode.AFTER_SALE_NOT_EXIST, null);
 
         // 售后订单已完成
-        if (a.getIs_finished().equals("已完成"))
+        if (a.getIs_finish())
             return Response.error(ResponseCode.AFTER_SALE_ALREADY_HANDLE, null);
 
         // 更新售后订单
         a.setResult(afterSaleInfo.getResult());
-        a.setIs_finished("已完成");
+        a.setIs_finish(true);
         afterSaleMapper.updateById(a);
 
         int id = a.getAfter_sale_id();

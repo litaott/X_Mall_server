@@ -52,12 +52,12 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
 
         // 添加具体优惠信息
         for (PreferenceInfo pref:list) {
-            String category = pref.getCategory();
+            int category_index = pref.getCategory_index();
             int pref_id = pref.getPref_id();
-            switch (category) {
-                case "打折" -> pref.setDiscount(discountMapper.selectById(pref_id).getDiscount());
-                case "降价" -> pref.setReduction(reductionMapper.selectById(pref_id).getReduction());
-                case "赠品" -> pref.setGift(giftMapper.selectById(pref_id).getGift());
+            switch (category_index) {
+                case 0 -> pref.setReduction(reductionMapper.selectById(pref_id).getReduction());
+                case 1 -> pref.setDiscount(discountMapper.selectById(pref_id).getDiscount());
+                case 2 -> pref.setGift(giftMapper.selectById(pref_id).getGift());
             }
         }
 
@@ -72,21 +72,21 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
             return Response.error(ResponseCode.FAIL, null);
 
         // 添加具体优惠信息
-        String category = preferenceInfo.getCategory();
-        switch (category) {
-            case "打折" -> {
-                DiscountInfo discountInfo = new DiscountInfo();
-                discountInfo.setDiscount(preferenceInfo.getDiscount());
-                discountMapper.insert(discountInfo);
-                preferenceInfo.setPref_id(discountInfo.getDiscount_id());
-            }
-            case "降价" -> {
+        int category_index = preferenceInfo.getCategory_index();
+        switch (category_index) {
+            case 0 -> {
                 ReductionInfo reductionInfo = new ReductionInfo();
                 reductionInfo.setReduction(preferenceInfo.getReduction());
                 reductionMapper.insert(reductionInfo);
                 preferenceInfo.setPref_id(reductionInfo.getReduction_id());
             }
-            case "赠品" -> {
+            case 1 -> {
+                DiscountInfo discountInfo = new DiscountInfo();
+                discountInfo.setDiscount(preferenceInfo.getDiscount());
+                discountMapper.insert(discountInfo);
+                preferenceInfo.setPref_id(discountInfo.getDiscount_id());
+            }
+            case 2 -> {
                 GiftInfo giftInfo = new GiftInfo();
                 giftInfo.setGift(preferenceInfo.getGift());
                 giftMapper.insert(giftInfo);
