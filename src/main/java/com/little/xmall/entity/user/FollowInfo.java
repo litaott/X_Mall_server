@@ -18,12 +18,9 @@ import java.util.Date;
 @AllArgsConstructor
 @TableName("follow_info")
 public class FollowInfo implements Serializable {
-    @TableId(value = "user_id")
+
     private Integer user_id;
-    @TableId(value = "store_id")
+
     private Integer store_id;
-    private String goods_name;
-    private float price;
-    private int quantity;
 
 }

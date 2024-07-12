@@ -8,10 +8,12 @@ import com.little.xmall.constant.ResponseCode;
 import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.entity.user.CartInfo;
 import com.little.xmall.entity.user.UserInfo;
+import com.little.xmall.entity.user.FollowInfo;
 import com.little.xmall.mapper.user.AddressInfoMapper;
+import com.little.xmall.mapper.user.FollowInfoMapper;
 import com.little.xmall.mapper.user.UserInfoMapper;
 import com.little.xmall.mapper.user.CartInfoMapper;
-import com.little.xmall.service.UserInfoService;
+import com.little.xmall.service.UserService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +29,16 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @DS("db_XMall_user_info")
-public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
+public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserService {
 
     private final UserInfoMapper userInfoMapper;
     private final AddressInfoMapper addressInfoMapper;
     private final CartInfoMapper cartInfoMapper;
+    private final FollowInfoMapper followInfoMapper;
 
     @Override
     public Response<Map<String, Object>> registerUser(UserInfo userInfo) {
-        if (userInfoMapper.selectByMap(Map.of("phone_number", userInfo.getUsername())).size() > 0) {
+        if (!userInfoMapper.selectByMap(Map.of("phone_number", userInfo.getPhone_number())).isEmpty()) {
             return Response.error(ResponseCode.USER_EXIST, null);
         } else {
             userInfoMapper.insert(userInfo);
@@ -101,6 +104,21 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public Response<Map<String, Object>> addCart(CartInfo cartInfo) {
         cartInfoMapper.insert(cartInfo);
         return Response.success(ResponseCode.SUCCESS,null);
+    }
+    @Override
+    public Response<String> deleteCart(int goods_id) {
+        cartInfoMapper.deleteById(goods_id);
+        return Response.success(ResponseCode.SUCCESS, null);
+    }
+    @Override
+    public Response<Map<String, Object>> addFollow(FollowInfo followInfo) {
+        followInfoMapper.insert(followInfo);
+        return Response.success(ResponseCode.SUCCESS,null);
+    }
+    @Override
+    public Response<String> deleteFollow(int store_id) {
+        followInfoMapper.deleteById(store_id);
+        return Response.success(ResponseCode.SUCCESS, null);
     }
 
 }

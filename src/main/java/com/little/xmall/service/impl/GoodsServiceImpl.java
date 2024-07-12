@@ -6,7 +6,7 @@ import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
 import com.little.xmall.entity.goods.GoodsInfo;
 import com.little.xmall.mapper.goods.GoodsInfoMapper;
-import com.little.xmall.service.GoodsInfoService;
+import com.little.xmall.service.GoodsService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @DS("db_XMall_goods_info")
-public class GoodsInfoServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements GoodsInfoService {
+public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements GoodsService {
 
     private final GoodsInfoMapper goodsInfoMapper;
     @Override

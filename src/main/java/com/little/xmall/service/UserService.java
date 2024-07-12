@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.entity.user.CartInfo;
+import com.little.xmall.entity.user.FollowInfo;
 import com.little.xmall.entity.user.UserInfo;
 
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @author Little
  */
 
-public interface UserInfoService extends IService<UserInfo>{
+public interface UserService extends IService<UserInfo>{
     /**
      * 创建新的用户信息
      * @param userInfo 用户信息
@@ -37,4 +38,10 @@ public interface UserInfoService extends IService<UserInfo>{
 
 
     Response<Map<String, Object>> addCart(CartInfo cartInfo);
+
+    Response<String> deleteCart(int goods_id);
+
+    Response<Map<String, Object>> addFollow(FollowInfo followInfo);
+
+    Response<String> deleteFollow(int store_id);
 }

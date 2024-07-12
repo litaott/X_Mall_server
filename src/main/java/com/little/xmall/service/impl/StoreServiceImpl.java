@@ -7,7 +7,7 @@ import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
 import com.little.xmall.entity.store.StoreInfo;
 import com.little.xmall.mapper.store.StoreInfoMapper;
-import com.little.xmall.service.StoreInfoService;
+import com.little.xmall.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @DS("db_XMall_store_info")
-public class StoreInfoServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> implements StoreInfoService {
+public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> implements StoreService {
 
     private final StoreInfoMapper storeInfoMapper;
     @Override
