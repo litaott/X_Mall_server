@@ -11,11 +11,11 @@ create table user_info
         comment '用户名',
     is_login      boolean             not null default false
         comment '登录状态',
-    balance       decimal(10, 2)      not null default 0
+    balance       decimal(10, 2)      not null default 0.00
         comment '余额',
     phone_number  varchar(20)         not null
         comment '电话号码',
-    avatar        varchar(1023)
+    avatar        varchar(1023)       not null default 'user_default.png'
         comment '头像',
     gender_index  int                 not null default 0
         comment '用户性别，0:未知 1:男 2:女',
@@ -26,10 +26,8 @@ create table user_info
     role_index    int                 not null default 0
         comment '用户角色，0:普通用户 1:管理员',
     create_time   datetime            not null
-        comment '注册时间',
-    is_delete     boolean             not null default false
-        comment '删除标记'
-) comment '用户信息表' charset = utf8;
+        comment '注册时间'
+) comment '用户信息表' charset = utf8 auto_increment = 100001 ;
 
 create table address_info
 (
@@ -107,7 +105,7 @@ create table goods_info
         comment '售后标准',
     transportation varchar(20)
         comment '运输方式',
-    trans_price    decimal(10, 2) not null default 0
+    trans_price    decimal(10, 2) not null default 0.00
         comment '运费',
     is_delete      boolean        not null default false
         comment '删除标记'
@@ -156,17 +154,15 @@ create table store_info
         comment '经营者身份信息',
     reputation   decimal(2, 1)  not null default 5.0
         comment '店铺评级',
-    revenue      decimal(10, 2) not null default 0
+    revenue      decimal(10, 2) not null default 0.00
         comment '店铺总营收',
     fans_number  int            not null default 0
         comment '粉丝数',
     image        varchar(255)
         comment '展示图片',
     create_time  datetime       not null
-        comment '创建时间',
-    is_delete    boolean        not null default false
-        comment '删除标记'
-) comment '店铺信息表' charset = utf8;
+        comment '创建时间'
+) comment '店铺信息表' charset = utf8 auto_increment = 1001;
 
 drop database if exists db_XMall_order;
 create database db_XMall_order;
@@ -181,7 +177,7 @@ create table order_info
         comment '店铺id',
     total_price   decimal(10, 2) not null
         comment '总价格',
-    trans_price   decimal(10, 2) not null default 0
+    trans_price   decimal(10, 2) not null default 0.00
         comment '运费',
     pay_time      datetime
         comment '支付时间',
