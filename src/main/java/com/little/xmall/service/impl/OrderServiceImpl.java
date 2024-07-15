@@ -49,10 +49,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
             orderItemInfoMapper.insert(itemInfo);
         }
 
-        OrderInfo o = orderInfoMapper.selectById(orderInfo.getOrder_id());
-        System.out.println(o.getTotal_price());
-        System.out.println(o.getTrans_price());
-
         return Response.success(ResponseCode.ORDER_CREATE_SUCCESS, Map.of("order_id", orderInfo.getOrder_id()));
     }
 
