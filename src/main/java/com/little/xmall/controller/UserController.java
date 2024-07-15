@@ -79,12 +79,20 @@ public class UserController {
     public Response<String> deleteAddress(@RequestParam int goods_id) {
         return userService.deleteCart(goods_id);
     }
-    @PostMapping("/user/add_follow")
+    @PostMapping("/add_follow")
     public Response<Map<String, Object>> addFollow(@RequestBody FollowInfo followInfo) {
         return userService.addFollow(followInfo);
     }
-    @DeleteMapping("/user/delete_follow")
-    public Response<String> deleteFollow(@RequestParam int store_id) {
-        return userService.deleteFollow(store_id);
+    @DeleteMapping("/delete_follow")
+    public Response<String> deleteFollow(@RequestParam int store_id,int user_id) {
+        return userService.deleteFollow(store_id,user_id);
+    }
+    @GetMapping("/get_follow")
+    Response<Map<String, List<?>>>getFollow(@RequestParam int user_id){
+        return userService.getFollow(user_id);
+    }
+    @GetMapping("/get_if_follow")
+    Response<String>getIfFollow(@RequestParam int user_id,int store_id){
+        return userService.getIfFollow(user_id,store_id);
     }
 }

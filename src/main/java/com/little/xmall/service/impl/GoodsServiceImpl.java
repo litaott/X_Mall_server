@@ -36,13 +36,13 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
     private final CommentInfoMapper commentInfoMapper;
 
     @Override
-    public Response<Map<String, Object>> registerGoods(GoodsInfo goodsInfo) {//测试完成
+    public Response<Map<String, Object>> registerGoods(GoodsInfo goodsInfo) {
             goodsInfoMapper.insert(goodsInfo);
         List<String> image_url = goodsInfo.getImages();
         if (image_url != null && !image_url.isEmpty()) {
             for (String imageUrl : image_url) {
                 GoodsImageInfo goodsImageInfo = new GoodsImageInfo();
-                goodsImageInfo.setGoods_id(goodsInfo.getGoods_id()); // 设置关联的商品ID
+                goodsImageInfo.setGoods_id(goodsInfo.getGoods_id());
                 goodsImageInfo.setImage_url(imageUrl);
                 goodsImageInfoMapper.insert(goodsImageInfo);}
 
@@ -55,7 +55,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
     }
     @Override
-    public Response<Map<String, Object>> updateGoods(GoodsInfo goodsInfo) {//测试完成
+    public Response<Map<String, Object>> updateGoods(GoodsInfo goodsInfo) {
         int result = goodsInfoMapper.updateById(goodsInfo);
         if (result > 0) {
             return Response.success(ResponseCode.SUCCESS, null);
@@ -63,7 +63,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         return null;
     }
     @Override
-    public Response<Map<String, Object>> updateGoodsImage(GoodsImageInfo goodsImageInfo) {//测试完成
+    public Response<Map<String, Object>> updateGoodsImage(GoodsImageInfo goodsImageInfo) {
         UpdateWrapper<GoodsImageInfo> updateWrapper = new UpdateWrapper<>();
         GoodsImageInfo imageInfo=goodsImageInfoMapper.selectById(goodsImageInfo.getImage_id());
         updateWrapper.eq("image_id", goodsImageInfo.getImage_id()).set("image_url",goodsImageInfo.getImage_url());
@@ -72,7 +72,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         return Response.success(ResponseCode.SUCCESS, null);
     }
     @Override
-    public Response<String> deleteGoods(Integer goods_id) {//测试完成
+    public Response<String> deleteGoods(Integer goods_id) {
         goodsInfoMapper.deleteById(goods_id);
         QueryWrapper<GoodsImageInfo> queryWrapper = new QueryWrapper<>();
         goodsImageInfoMapper.delete(queryWrapper.eq("goods_id",goods_id));
@@ -81,18 +81,18 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         return Response.success(ResponseCode.SUCCESS,null);
     }
     @Override
-    public Response<String> deleteGoodsImage(Integer image_id) {//测试完成
+    public Response<String> deleteGoodsImage(Integer image_id) {
         QueryWrapper<GoodsImageInfo> queryWrapper = new QueryWrapper<>();
         goodsImageInfoMapper.delete(queryWrapper.eq("image_id",image_id));
         return Response.success(ResponseCode.SUCCESS, null);
     }
     @Override
-    public Response<Map<String, Object>> addComment(CommentInfo commentInfo) {//测试完成
+    public Response<Map<String, Object>> addComment(CommentInfo commentInfo) {
         commentInfoMapper.insert(commentInfo);
         return Response.success(ResponseCode.SUCCESS, Map.of("comment_id", commentInfo.getComment_id()));
     }
     @Override
-    public Response<Map<String, List<?>>> getComment(Integer goods_id) {//测试完成
+    public Response<Map<String, List<?>>> getComment(Integer goods_id) {
         Map<String, List<?>> result = new HashMap<>();
         QueryWrapper<CommentInfo> commentInfoQueryWrapper = new QueryWrapper<>();
         commentInfoQueryWrapper.eq("goods_id", goods_id);
@@ -101,7 +101,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         return Response.success(ResponseCode.SUCCESS, result);
     }
     @Override
-    public Response<String> deleteComment(int comment_id){//测试完成
+    public Response<String> deleteComment(int comment_id){
         commentInfoMapper.deleteById(comment_id);
         return Response.success(ResponseCode.SUCCESS, null);
     }
