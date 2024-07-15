@@ -1,7 +1,10 @@
 package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
+import com.little.xmall.entity.goods.CommentInfo;
+import com.little.xmall.entity.goods.GoodsImageInfo;
 import com.little.xmall.entity.goods.GoodsInfo;
+import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.service.GoodsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +30,35 @@ public class GoodsController {
         return goodsService.registerGoods(goodsInfo);
     }
     @GetMapping("/goods/get_goods")
-    public Response<List<Map<String, Object>>> getGoods(int goods_id) {
+    public Response<List<Map<String, Object>>> getGoods(@RequestParam int goods_id) {
         return goodsService.getGoods(goods_id);
     }
-    @PostMapping("/goods/update")
+    @PutMapping("/update_goods")
     public Response<Map<String, Object>> updateGoods(@RequestBody GoodsInfo goodsInfo) {
         return goodsService.updateGoods(goodsInfo);
     }
-    @DeleteMapping("/goods/delete_goods")
+    @PutMapping("/update_goods_image")
+    public Response<Map<String, Object>> updateGoodsImage(@RequestBody GoodsImageInfo goodsImageInfo) {
+        return goodsService.updateGoodsImage(goodsImageInfo);
+    }
+    @DeleteMapping("/delete_goods")
     public Response<String> deleteGoods(@RequestParam Integer goods_id) {
         return goodsService.deleteGoods(goods_id);
+    }
+    @DeleteMapping("/delete_goods_images")
+    public Response<String> deleteGoodsImage(@RequestParam Integer image_id) {
+        return goodsService.deleteGoodsImage(image_id);
+    }
+    @PostMapping("/add_comment")
+    public Response<Map<String, Object>> addComment(@RequestBody CommentInfo commentInfo) {
+        return goodsService.addComment(commentInfo);
+    }
+    @GetMapping("/get_comment")
+    public Response<Map<String, List<?>>> getComment(@RequestParam Integer goods_id) {
+        return goodsService.getComment(goods_id);
+    }
+    @DeleteMapping("/delete_comment")
+    public Response<String> deleteComment(@RequestParam Integer comment_id) {
+        return goodsService.deleteComment(comment_id);
     }
 }

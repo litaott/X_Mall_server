@@ -20,8 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 @TableName("goods_image_info")
 public class GoodsImageInfo {
-    @TableId(value = "goods_image_id", type = IdType.AUTO)
-    private Integer goods_image_id;
+    @TableId(value = "image_id", type = IdType.AUTO)
+    private Integer image_id;
     private int goods_id;
     private String image_url;
 }

@@ -70,11 +70,11 @@ values ('小米10', 1001, 5999.00, 0.00, 100, 0, now(), 0, null, null),
        ('华为平板', 1005, 7999.00, 0.00, 100, 0, now(), 0, null, null);
 
 -- 插入商品评论信息
-insert into comment_info(goods_id, sender_id, message, send_time)
-    values (1, 100001, '真好用', now()),
-           (1, 100002, '孩子很喜欢', now()),
-           (4, 100002, '敏感肌也能用', now()),
-           (6, 100005, '邻居都馋疯了', now());
+insert into comment_info(goods_id, sender_id, message, send_time,point)
+    values (1, 100001, '真好用', now(),5),
+           (1, 100002, '孩子很喜欢', now(),4),
+           (4, 100002, '敏感肌也能用', now(),3),
+           (6, 100005, '邻居都馋疯了', now(),5);
 
 -- 插入商品图片信息
 

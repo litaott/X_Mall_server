@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,31 +23,36 @@ import java.util.Map;
 @RequestMapping("/store")
 public class StoreController {
     private final StoreService storeService;
-    @PostMapping("/store/register_store")
+    @PostMapping("/register_store")
     public Response<Map<String, Object>> registerStore(@RequestBody StoreInfo storeInfo) {
         return storeService.registerStore(storeInfo);
     }
-    @PostMapping("/store/update")
+    @GetMapping("/get_store")
+    public Response<List<Map<String, Object>>> getStore(@RequestParam Integer store_id){
+        return storeService.getStore(store_id);
+    }
+    @PostMapping("/update")
     public Response<Map<String, Object>> updateStore(@RequestBody StoreInfo storeInfo) {
         return storeService.updateStore(storeInfo);
     }
-    @PostMapping("/store/login")
+    @PostMapping("/login")
     public Response<Map<String, Object>> login(@RequestBody Map<String, String> storeInfo) {
         Integer storeId = Integer.parseInt(storeInfo.get("store_id"));
         String password = storeInfo.get("password");
         return storeService.login(storeId, password);
     }
-    @DeleteMapping("/store/delete_store")
+    @DeleteMapping("/delete_store")
     public Response<String> deleteStore(@RequestParam int store_id) {
+
         return storeService.deleteStore(store_id);
     }
     @GetMapping("/get_reputation")
-    public Response<Map<String, Object>>getReputation(@RequestBody StoreInfo store_id){
+    public Response<Map<String, Object>>getReputation(@RequestParam Integer store_id){
         return storeService.getReputation(store_id);
     }
 
     @GetMapping("/get_fans")
-    public Response<Map<String, Object>>getFans(@RequestBody StoreInfo store_id){
+    public Response<Map<String, Object>>getFans(@RequestParam Integer store_id){
         return  storeService.getFans(store_id);
     }
 }

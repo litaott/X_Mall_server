@@ -24,5 +24,6 @@ import java.util.Date;
         private int goods_id;
         private int sender_id;
         private String message;
-        private String date_name;
+        private String send_time;
+        private int point;
 }
