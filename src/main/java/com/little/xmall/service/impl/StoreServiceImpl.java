@@ -89,4 +89,21 @@ public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> im
         }
         return Response.error(ResponseCode.SUCCESS,Map.of("store_fans",storeInfo.getFans_number()));
     }
+
+    @Override
+    public void addFans(Integer store_id){
+        StoreInfo storeInfo=storeInfoMapper.selectById(store_id);
+        int fans_number=storeInfo.getFans_number();
+        fans_number=fans_number+1;
+        storeInfo.setFans_number(fans_number);
+        storeInfoMapper.updateById(storeInfo);
+    }
+    @Override
+    public  void deleteFans(Integer store_id){
+        StoreInfo storeInfo=storeInfoMapper.selectById(store_id);
+        int fans_number=storeInfo.getFans_number();
+        fans_number=fans_number-1;
+        storeInfo.setFans_number(fans_number);
+        storeInfoMapper.updateById(storeInfo);
+    }
 }

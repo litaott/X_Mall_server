@@ -47,5 +47,9 @@ public interface UserService extends IService<UserInfo>{
 
     Response<Map<String, Object>> addFollow(FollowInfo followInfo);
 
-    Response<String> deleteFollow(int store_id);
+    Response<String> deleteFollow(int store_id,int user_id);
+
+    Response<Map<String, List<?>>>getFollow(int user_id);
+
+    Response<String>getIfFollow(int user_id, int store_id);
 }

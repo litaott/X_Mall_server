@@ -21,6 +21,9 @@ public enum ResponseCode {
     USER_SIGN_IN_SUCCESS(202,"登录成功"),
     USER_PASSWORD_ERROR(402,"密码错误"),
     USER_NOT_EXIST(403,"用户不存在"),
+
+    USER_FOLLOWED(206,"用户已关注"),
+    USER_NOT_FOLLOW(408,"用户未关注"),
     /**
      * 商品相关
      */

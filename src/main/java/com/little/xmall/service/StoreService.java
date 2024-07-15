@@ -21,4 +21,9 @@ public interface StoreService extends IService<StoreInfo>{
     Response<Map<String, Object>> getReputation(Integer store_id);
 
     Response<Map<String, Object>> getFans(Integer store_id);
+
+
+    void addFans(Integer store_id);
+
+    void deleteFans(Integer store_id);
 }
