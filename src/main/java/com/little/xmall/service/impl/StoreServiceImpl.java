@@ -106,4 +106,9 @@ public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> im
         storeInfo.setFans_number(fans_number);
         storeInfoMapper.updateById(storeInfo);
     }
+
+    @Override
+    public String getStoreName(Integer store_id) {
+        return storeInfoMapper.selectById(store_id).getStore_name();
+    }
 }

@@ -12,11 +12,11 @@ public class OssConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public OssUtil aliOssUtil(OssProperties aliOssProperties){
-        return new OssUtil(aliOssProperties.getEndpoint(),
-                aliOssProperties.getAccessKeyId(),
-                aliOssProperties.getAccessKeySecret(),
-                aliOssProperties.getBucketName());
+    public OssUtil OssUtil(OssProperties ossProperties){
+        return new OssUtil(ossProperties.getEndpoint(),
+                ossProperties.getAccessKeyId(),
+                ossProperties.getAccessKeySecret(),
+                ossProperties.getBucketName());
     }
 
 }

@@ -1,32 +1,35 @@
-package com.little.xmall.controller;
+package com.little.xmall.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
+import com.little.xmall.entity.user.UserInfo;
+import com.little.xmall.mapper.user.UserInfoMapper;
+import com.little.xmall.service.ResourceService;
 import com.little.xmall.utils.OssUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
-
+/**
+ * 资源服务实现类
+ *
+ * @author Little
+ */
 @Slf4j
-@CrossOrigin
+@Service
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/image")
-public class ImageController {
+public class ResourceServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements ResourceService {
 
     private final OssUtil ossUtil;
 
-    @PostMapping("/upload")
+    @Override
     public Response<Map<String, Object>> upload(MultipartFile file) {
         try {
             //原始文件名
@@ -46,6 +49,4 @@ public class ImageController {
             throw new RuntimeException(e);
         }
     }
-
-
 }
