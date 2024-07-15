@@ -26,4 +26,6 @@ public interface StoreService extends IService<StoreInfo>{
     void addFans(Integer store_id);
 
     void deleteFans(Integer store_id);
+
+    String getStoreName(Integer store_id);
 }

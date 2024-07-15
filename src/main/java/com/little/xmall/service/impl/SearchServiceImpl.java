@@ -1,0 +1,67 @@
+package com.little.xmall.service.impl;
+
+import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.little.xmall.constant.Response;
+import com.little.xmall.constant.ResponseCode;
+import com.little.xmall.entity.goods.GoodsInfo;
+import com.little.xmall.entity.search.SearchGoods;
+import com.little.xmall.mapper.goods.GoodsInfoMapper;
+import com.little.xmall.mapper.store.StoreInfoMapper;
+import com.little.xmall.service.SearchService;
+import com.little.xmall.service.StoreService;
+import com.little.xmall.utils.MapUtil;
+import com.little.xmall.utils.SearchUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 搜索服务实现类
+ *
+ * @author Little
+ */
+@Slf4j
+@Service
+@RequiredArgsConstructor
+@DS("db_XMall_goods")
+public class SearchServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements SearchService {
+
+//    private final ThreadLocal<String> threadLocal;
+    private final GoodsInfoMapper goodsInfoMapper;
+    private final StoreService storeService;
+
+    @Override
+    public Response<List<List<Map<String, Object>>>> searchByKeyword(String keyword) {
+
+        List<SearchGoods> searchGoodsList = new ArrayList<>();
+        List<GoodsInfo> goodsInfoList = goodsInfoMapper.selectList(null);
+
+        for (GoodsInfo goodsInfo : goodsInfoList){
+            SearchGoods searchGoods = new SearchGoods();
+            searchGoods.setGoods_id(goodsInfo.getGoods_id());
+            searchGoods.setGoods_name(goodsInfo.getGoods_name());
+            searchGoods.setPrice(goodsInfo.getPrice());
+            searchGoods.setSale_number(goodsInfo.getSale_number());
+            searchGoods.setStore_name(storeService.getStoreName(goodsInfo.getStore_id()));
+            searchGoods.setCategory(goodsInfo.getCategory());
+            searchGoodsList.add(searchGoods);
+        }
+
+        List<List<SearchGoods>> result_list = SearchUtil.search(searchGoodsList, keyword);
+
+        List<List<Map<String, Object>>> map_list_list = new ArrayList<>();
+        for (List<SearchGoods> list : result_list) {
+            List<Map<String, Object>> map_list = new ArrayList<>();
+            for (SearchGoods goods : list)
+                map_list.add(MapUtil.getMap(goodsInfoMapper.selectById(goods.getGoods_id())));
+            map_list_list.add(map_list);
+        }
+
+        return Response.success(ResponseCode.SUCCESS, map_list_list);
+    }
+}

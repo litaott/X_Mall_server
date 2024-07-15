@@ -16,5 +16,5 @@ public class SearchGoods {
     private String category;
     private float price;
     private int sale_number;
-    public int score;
+    private int distance;        // 字符串模糊匹配距离
 }
