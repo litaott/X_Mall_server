@@ -13,7 +13,7 @@ public class OptionMap {
             USER_GENDER,        // 用户性别，0:未知 1:男 2:女
             USER_ROLE,          // 用户角色，0:普通用户 1:管理员
             ADDRESS_LABEL,      // 地址标签，0:家 1:学校 2:公司
-            GOODS_CATEGORY,     // 商品类别，0:数码产品 1:家用电器
+            GOODS_CATEGORY,     // 商品类别，0:数码 1:居家 2:穿搭 3:美食 4:户外 5:护肤
             PAY_WAY,            // 支付方式，0:支付宝 1:微信 2:余额
             ORDER_STATUS,       // 订单状态，0:待付款 1:待发货 2:待收货 3:待完成 4:已完成
             AFTER_SALE_CATEGORY,// 售后类型，0:退货退款 1:换货 2:仅退款
@@ -42,8 +42,12 @@ public class OptionMap {
 
         //商品分类
         GOODS_CATEGORY = new BiMapUtil();
-        GOODS_CATEGORY.put(0, "数码产品");
-        GOODS_CATEGORY.put(1, "家用电器");
+        GOODS_CATEGORY.put(0, "数码");
+        GOODS_CATEGORY.put(1, "居家");
+        GOODS_CATEGORY.put(2, "穿搭");
+        GOODS_CATEGORY.put(3, "美食");
+        GOODS_CATEGORY.put(4, "户外");
+        GOODS_CATEGORY.put(5, "护肤");
 
         //支付方式
         PAY_WAY = new BiMapUtil();

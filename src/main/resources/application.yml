@@ -71,3 +71,9 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: false
+
+alioss:
+  endpoint: oss-cn-wuhan-lr.aliyuncs.com
+  access-key-id: LTAI5tBZn9czbKLLE9Sk4DsY
+  access-key-secret: JqDSV7y34g0FxP5nrKZ4fAq4QCVEWH
+  bucket-name: xiaoxiang-mall
