@@ -34,6 +34,7 @@ public enum ResponseCode {
     STORE_SIGN_IN_SUCCESS(205,"登录成功"),
     STORE_PASSWORD_ERROR(405,"密码错误"),
     STORE_NOT_EXIST(406,"店铺不存在"),
+    STORE_HAS_EXIST(407,"商店已注册"),
 
 
 

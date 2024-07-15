@@ -27,7 +27,8 @@ create table user_info
         comment '用户角色，0:普通用户 1:管理员',
     create_time   datetime            not null
         comment '注册时间'
-) comment '用户信息表' charset = utf8 auto_increment = 100001 ;
+) comment '用户信息表' charset = utf8
+                       auto_increment = 100001;
 
 create table address_info
 (
@@ -119,15 +120,17 @@ create table comment_info
         comment '发送者id',
     message    varchar(255) not null
         comment '评论内容',
+    point      int          not null
+        comment '评分',
     send_time  datetime     not null
         comment '发送时间'
 ) comment '评价信息表' charset = utf8;
 
 create table goods_image_info
 (
-    image_id  int not null primary key auto_increment
+    image_id  int           not null primary key auto_increment
         comment '商品图片id',
-    goods_id  int not null
+    goods_id  int           not null
         comment '所属商品id',
     image_url varchar(1023) not null
         comment '图片路径'
@@ -160,7 +163,8 @@ create table store_info
         comment '展示图片',
     create_time  datetime       not null
         comment '创建时间'
-) comment '店铺信息表' charset = utf8 auto_increment = 1001;
+) comment '店铺信息表' charset = utf8
+                       auto_increment = 1001;
 
 drop database if exists db_XMall_order;
 create database db_XMall_order;

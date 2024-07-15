@@ -28,7 +28,6 @@ public class StoreInfo implements Serializable{
     private float reputation;
     private float revenue;
     private int fans_number;
-    private String images;
+    private String image;
     private String create_time;
-    private int del_flag;
 }
