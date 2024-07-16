@@ -1,5 +1,6 @@
 package com.little.xmall.service.impl;
 
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.dynamic.datasource.annotation.DS;
@@ -10,7 +11,6 @@ import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.entity.user.CartInfo;
 import com.little.xmall.entity.user.UserInfo;
 import com.little.xmall.entity.user.FollowInfo;
-import com.little.xmall.mapper.store.StoreInfoMapper;
 import com.little.xmall.mapper.user.AddressInfoMapper;
 import com.little.xmall.mapper.user.FollowInfoMapper;
 import com.little.xmall.mapper.user.UserInfoMapper;
@@ -19,6 +19,8 @@ import com.little.xmall.service.UserService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -39,14 +41,15 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     private final AddressInfoMapper addressInfoMapper;
     private final CartInfoMapper cartInfoMapper;
     private final FollowInfoMapper followInfoMapper;
-    private final StoreInfoMapper storeInfoMapper;
     private final StoreServiceImpl storeServiceImpl;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Response<Map<String, Object>> registerUser(UserInfo userInfo) {
         if (!userInfoMapper.selectByMap(Map.of("phone_number", userInfo.getPhone_number())).isEmpty()) {
             return Response.error(ResponseCode.USER_EXIST, null);
         } else {
+            userInfo.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
             userInfoMapper.insert(userInfo);
             return Response.success(ResponseCode.USER_REGISTER_SUCCESS, Map.of("user_id", userInfo.getUser_id()));
         }
@@ -123,7 +126,6 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         cartInfoMapper.insert(cartInfo);
         return Response.success(ResponseCode.SUCCESS,null);
     }
-
     @Override
     public Response<List<Map<String, Object>>> getCart(int user_id) {
         LambdaQueryWrapper<CartInfo> queryWrapper = new LambdaQueryWrapper<>();
@@ -132,7 +134,6 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
             return Response.success(ResponseCode.SUCCESS, null);
         return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(cartInfoMapper.selectList(queryWrapper)));
     }
-
     @Override
     public Response<String> deleteCart(int goods_id) {
         cartInfoMapper.deleteById(goods_id);
