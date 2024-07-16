@@ -43,6 +43,8 @@ public interface UserService extends IService<UserInfo>{
 
     Response<Map<String, Object>> addCart(CartInfo cartInfo);
 
+    Response<List<Map<String, Object>>> getCart(int user_id);
+
     Response<String> deleteCart(int goods_id);
 
     Response<Map<String, Object>> addFollow(FollowInfo followInfo);

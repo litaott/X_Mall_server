@@ -31,16 +31,17 @@ import java.util.Map;
 @DS("db_XMall_goods")
 public class SearchServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements SearchService {
 
-//    private final ThreadLocal<String> threadLocal;
     private final GoodsInfoMapper goodsInfoMapper;
     private final StoreService storeService;
 
     @Override
     public Response<List<List<Map<String, Object>>>> searchByKeyword(String keyword) {
 
+        // 获取所有商品信息
         List<SearchGoods> searchGoodsList = new ArrayList<>();
         List<GoodsInfo> goodsInfoList = goodsInfoMapper.selectList(null);
 
+        // 提取搜索要素
         for (GoodsInfo goodsInfo : goodsInfoList){
             SearchGoods searchGoods = new SearchGoods();
             searchGoods.setGoods_id(goodsInfo.getGoods_id());
@@ -52,8 +53,10 @@ public class SearchServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> i
             searchGoodsList.add(searchGoods);
         }
 
+        // 调用搜索算法
         List<List<SearchGoods>> result_list = SearchUtil.search(searchGoodsList, keyword);
 
+        //获取结果信息，转为Map
         List<List<Map<String, Object>>> map_list_list = new ArrayList<>();
         for (List<SearchGoods> list : result_list) {
             List<Map<String, Object>> map_list = new ArrayList<>();
