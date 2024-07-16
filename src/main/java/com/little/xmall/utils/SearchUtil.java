@@ -1,7 +1,7 @@
 package com.little.xmall.utils;
 
-
 import com.little.xmall.entity.search.SearchGoods;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,6 +12,7 @@ import java.util.List;
  *
  * @author Little
  */
+@Component
 public class SearchUtil {
 
     /**

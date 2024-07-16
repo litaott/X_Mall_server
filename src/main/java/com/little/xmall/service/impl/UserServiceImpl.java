@@ -1,5 +1,6 @@
 package com.little.xmall.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -122,6 +123,16 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         cartInfoMapper.insert(cartInfo);
         return Response.success(ResponseCode.SUCCESS,null);
     }
+
+    @Override
+    public Response<List<Map<String, Object>>> getCart(int user_id) {
+        LambdaQueryWrapper<CartInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(CartInfo::getUser_id, user_id);
+        if (cartInfoMapper.selectList(queryWrapper).isEmpty())
+            return Response.success(ResponseCode.SUCCESS, null);
+        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(cartInfoMapper.selectList(queryWrapper)));
+    }
+
     @Override
     public Response<String> deleteCart(int goods_id) {
         cartInfoMapper.deleteById(goods_id);
