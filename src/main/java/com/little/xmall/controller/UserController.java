@@ -75,6 +75,10 @@ public class UserController {
     public Response<Map<String, Object>> addCart(@RequestBody CartInfo cartInfo) {
         return userService.addCart(cartInfo);
     }
+    @GetMapping("/user/get_cart")
+    public Response<List<Map<String, Object>>> getCart(@RequestParam int user_id) {
+        return userService.getCart(user_id);
+    }
     @DeleteMapping("/user/delete_cart")
     public Response<String> deleteAddress(@RequestParam int goods_id) {
         return userService.deleteCart(goods_id);

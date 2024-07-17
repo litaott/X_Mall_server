@@ -44,7 +44,7 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
         // 查询优惠信息
         LambdaQueryWrapper<PreferenceInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(PreferenceInfo::getGoods_id, goods_id);
-        List<PreferenceInfo> list = preferenceMapper.selectObjs(queryWrapper);
+        List<PreferenceInfo> list = preferenceMapper.selectList(queryWrapper);
 
         // 优惠信息为空
         if (list.isEmpty())
@@ -78,19 +78,19 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
                 ReductionInfo reductionInfo = new ReductionInfo();
                 reductionInfo.setReduction(preferenceInfo.getReduction());
                 reductionMapper.insert(reductionInfo);
-                preferenceInfo.setPref_id(reductionInfo.getReduction_id());
+                preferenceInfo.setPref_id(reductionInfo.getId());
             }
             case 1 -> {
                 DiscountInfo discountInfo = new DiscountInfo();
                 discountInfo.setDiscount(preferenceInfo.getDiscount());
                 discountMapper.insert(discountInfo);
-                preferenceInfo.setPref_id(discountInfo.getDiscount_id());
+                preferenceInfo.setPref_id(discountInfo.getId());
             }
             case 2 -> {
                 GiftInfo giftInfo = new GiftInfo();
                 giftInfo.setGift(preferenceInfo.getGift());
                 giftMapper.insert(giftInfo);
-                preferenceInfo.setPref_id(giftInfo.getGift_id());
+                preferenceInfo.setPref_id(giftInfo.getId());
             }
         }
 

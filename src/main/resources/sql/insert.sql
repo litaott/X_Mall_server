@@ -78,7 +78,7 @@ insert into comment_info(goods_id, sender_id, message, send_time,point)
 
 -- 插入商品图片信息
 
-use db_xmall_store;
+use db_XMall_store;
 -- 插入店铺信息
 insert into store_info(store_name, password, owner_name, phone_number, credit_id, reputation,
                        revenue, fans_number, image, create_time)
@@ -88,7 +88,7 @@ values ('小米商城', '123456', '雷军', '12345678901', 430, 5.0, 1000000, 2,
        ('全友家居', '123456', '全友', '12345678904', 430, 4.1, 1000000, 1, 'store_default.png', now()),
        ('华为商城', '123456', '任志强', '12345678905', 430, 4.8, 1000000, 1, 'store_default.png', now());
 
-use db_xmall_order;
+use db_XMall_order;
 -- 插入订单信息
 insert into order_info(user_id, store_id, total_price, trans_price, address_id, pay_time, pay_way_index, send_time,
                        receive_time, finish_time, status_index)
@@ -108,13 +108,13 @@ values (100001, 1001, '你好', now()),
        (1001, 100001, '你好啊', now()),
        (100001, 1001, '再见', now());
 
-use db_xmall_after_sale;
+use db_XMall_after_sale;
 -- 插入售后信息
 insert into after_sale_info(user_id, store_id, order_id, goods_id, category_index, reason, result_index, start_time,
                             finish_time, is_finish)
 values (100003, 1004, 2, 7, 0, '不想要了', 0, now(), now(), true);
 
-use db_xmall_preference;
+use db_XMall_preference;
 -- 插入优惠信息
 insert into preference_info(goods_id, category_index, pref_name, pref_id, start_time, end_time)
 values (1, 0, '立减10元', 1, now(), now());

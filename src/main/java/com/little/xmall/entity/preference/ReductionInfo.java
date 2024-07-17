@@ -21,7 +21,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @TableName("reduction_info")
 public class ReductionInfo implements Serializable {
-    @TableId(value = "reduction_id", type = IdType.AUTO)
-    Integer reduction_id;
+    @TableId(value = "id", type = IdType.AUTO)
+    Integer id;
     float reduction;
 }
