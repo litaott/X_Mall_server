@@ -28,7 +28,7 @@ public interface UserService extends IService<UserInfo>{
 
     Response<Map<String, Object>> updateUser(UserInfo userInfo);
 
-    Response<Map<String, Object>> login(Integer user_id, String password);
+    Response<String> login(Integer user_id, String password);
 
 
     Response<String> deleteUser(int user_id);
@@ -40,6 +40,8 @@ public interface UserService extends IService<UserInfo>{
 
     Response<String> deleteAddress(Integer address_id);
 
+
+    Response<List<Map<String, Object>>> getAddress(Integer user_id);
 
     Response<Map<String, Object>> addCart(CartInfo cartInfo);
 

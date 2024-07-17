@@ -11,6 +11,8 @@ import com.little.xmall.service.StoreService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,11 +28,14 @@ import java.util.Map;
 public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> implements StoreService {
 
     private final StoreInfoMapper storeInfoMapper;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public Response<Map<String, Object>> registerStore(StoreInfo storeInfo) {
         if (!storeInfoMapper.selectByMap(Map.of("phone_number", storeInfo.getPhone_number())).isEmpty()) {
             return Response.error(ResponseCode.STORE_HAS_EXIST, null);
         } else {
+            storeInfo.setPassword(bCryptPasswordEncoder.encode(storeInfo.getPassword()));
             storeInfoMapper.insert(storeInfo);
             return Response.success(ResponseCode.STORE_REGISTER_SUCCESS, Map.of("store_id", storeInfo.getStore_id()));
         }
@@ -54,14 +59,15 @@ public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> im
     @Override
     public Response<Map<String, Object>> login(Integer store_id, String password) {
         QueryWrapper<StoreInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("store_id", store_id).eq("password", password);
+        queryWrapper.eq("store_id", store_id);
         StoreInfo storeInfo = storeInfoMapper.selectOne(queryWrapper);
         StoreInfo storeid=storeInfoMapper.selectById(store_id);
+        String result=storeInfo.getPassword();
         if(storeid==null){
             return Response.error(ResponseCode.STORE_NOT_EXIST,null);
         }
         else{
-        if (storeInfo != null) {
+        if (bCryptPasswordEncoder.matches(password,result)) {
             return Response.success(ResponseCode.STORE_SIGN_IN_SUCCESS, null);
         } else {
             return Response.error(ResponseCode.STORE_PASSWORD_ERROR, null);

@@ -5,7 +5,7 @@ create table user_info
 (
     user_id       int                 not null primary key auto_increment
         comment '用户id',
-    password      varchar(20)         not null
+    password      varchar(255)         not null
         comment '密码',
     username      varchar(255) binary not null
         comment '用户名',
