@@ -40,7 +40,7 @@ public class UserController {
 
 
     @GetMapping("/get_user")
-    public Response<List<Map<String, Object>>> getUser(int user_id) {
+    public Response<List<Map<String, Object>>> getUser(@RequestParam int user_id) {
         return userService.getUser(user_id);
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<Map<String, Object>> login(@RequestBody Map<String, String> userInfo) {
+    public Response<String> login(@RequestBody Map<String, String> userInfo) {
         Integer userId = Integer.parseInt(userInfo.get("user_id"));
         String password = userInfo.get("password");
         return userService.login(userId, password);
@@ -66,6 +66,10 @@ public class UserController {
     @PutMapping("/update_address")
     public Response<Map<String, Object>> updateAddress(@RequestBody AddressInfo addressInfo) {
         return userService.updateAddress(addressInfo);
+    }
+    @GetMapping("/get_address")
+    public Response<List<Map<String, Object>>> getAddress(@RequestParam Integer user_id){
+        return userService.getAddress(user_id);
     }
     @DeleteMapping("/delete_address")
     public Response<String> deleteAddress(@RequestParam Integer address_id) {

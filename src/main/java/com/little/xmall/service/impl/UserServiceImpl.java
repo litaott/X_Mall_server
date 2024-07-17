@@ -15,6 +15,7 @@ import com.little.xmall.mapper.user.AddressInfoMapper;
 import com.little.xmall.mapper.user.FollowInfoMapper;
 import com.little.xmall.mapper.user.UserInfoMapper;
 import com.little.xmall.mapper.user.CartInfoMapper;
+
 import com.little.xmall.service.UserService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
@@ -42,11 +43,16 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     private final CartInfoMapper cartInfoMapper;
     private final FollowInfoMapper followInfoMapper;
     private final StoreServiceImpl storeServiceImpl;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
     public Response<Map<String, Object>> registerUser(UserInfo userInfo) {
-        if (!userInfoMapper.selectByMap(Map.of("phone_number", userInfo.getPhone_number())).isEmpty()) {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone_number",userInfo.getPhone_number());
+        UserInfo userInfo1=userInfoMapper.selectOne(queryWrapper);
+        if (userInfo1!=null) {
             return Response.error(ResponseCode.USER_EXIST, null);
         } else {
             userInfo.setPassword(bCryptPasswordEncoder.encode(userInfo.getPassword()));
@@ -73,15 +79,16 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     }
 
     @Override
-    public Response<Map<String, Object>> login(Integer user_id, String password) {
+    public Response<String> login(Integer user_id, String password) {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", user_id).eq("password", password);
+        queryWrapper.eq("user_id", user_id);
         UserInfo userInfo = userInfoMapper.selectOne(queryWrapper);
         UserInfo userid=userInfoMapper.selectById(user_id);
+        String result=userInfo.getPassword();
         if (userid == null) {
             return Response.error(ResponseCode.USER_NOT_EXIST, null);
         } else {
-            if(userInfo !=null){
+            if(bCryptPasswordEncoder.matches(password,result)){
                 return  Response.success(ResponseCode.USER_SIGN_IN_SUCCESS,null);
             }
             else{
@@ -119,6 +126,11 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public Response<String> deleteAddress(Integer address_id) {//测试完成
         addressInfoMapper.deleteById(address_id);
         return Response.success(ResponseCode.SUCCESS, null);
+    }
+    @Override
+    public Response<List<Map<String, Object>>> getAddress(Integer user_id) {
+        List<AddressInfo> list = addressInfoMapper.selectByMap(Map.of("user_id", user_id));
+        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
     }
     @Override
     public Response<Map<String, Object>> addCart(CartInfo cartInfo) {
