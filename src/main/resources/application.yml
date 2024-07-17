@@ -12,7 +12,7 @@ spring:
       datasource:
         db_XMall_user:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_user?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_user?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
@@ -20,7 +20,7 @@ spring:
             maximum-pool-size: 10
         db_XMall_goods:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_goods?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_goods?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
@@ -28,7 +28,7 @@ spring:
             maximum-pool-size: 10
         db_XMall_store:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_store?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_store?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
@@ -36,7 +36,7 @@ spring:
             maximum-pool-size: 10
         db_XMall_order:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_order?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_order?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
@@ -44,7 +44,7 @@ spring:
             maximum-pool-size: 10
         db_XMall_communication:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_communication?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_communication?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
@@ -52,7 +52,7 @@ spring:
             maximum-pool-size: 10
         db_XMall_after_sale:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_after_sale?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_after_sale?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
@@ -60,7 +60,7 @@ spring:
             maximum-pool-size: 10
         db_XMall_preference:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/db_XMall_preference?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
+          url: jdbc:mysql://113.45.146.218:3306/db_XMall_preference?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&collation=utf8_bin
           username: root
           password: 1544
           hikari:
