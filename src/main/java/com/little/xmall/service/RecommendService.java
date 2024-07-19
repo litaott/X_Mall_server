@@ -21,19 +21,4 @@ public interface RecommendService extends IService<GoodsInfo> {
      */
     Response<List<Map<String, Object>>> recommendByUserId(int user_id);
 
-    /**
-     * 获取所有用户id
-     *
-     * @return List
-     */
-    List<Integer> getUserIds();
-
-    /**
-     * 获取用户购物车中的商品ID列表
-     *
-     * @param user_id 用户id
-     * @return List
-     */
-    List<Integer> getCartGoodsIds(int user_id);
-
 }

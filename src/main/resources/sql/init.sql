@@ -145,7 +145,7 @@ create table store_info
         comment '店铺id',
     store_name   varchar(10)    not null
         comment '店铺名称',
-    password     varchar(20)    not null
+    password     varchar(255)    not null
         comment '密码',
     owner_name   varchar(10)    not null
         comment '经营者姓名',
