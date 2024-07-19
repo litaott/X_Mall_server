@@ -35,6 +35,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
     private final GoodsImageInfoMapper goodsImageInfoMapper;
     private final CommentInfoMapper commentInfoMapper;
 
+    //注册商品
     @Override
     public Response<Map<String, Object>> registerGoods(GoodsInfo goodsInfo) {
             goodsInfoMapper.insert(goodsInfo);
@@ -49,11 +50,15 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         }
             return Response.success(ResponseCode.GOODS_REGISTER_SUCCESS, Map.of("goods_id", goodsInfo.getGoods_id()));
     }
+
+    //获取商品信息
     @Override
     public Response<List<Map<String, Object>>> getGoods(Integer goods_id) {
         List<GoodsInfo> list = goodsInfoMapper.selectByMap(Map.of("goods_id", goods_id));
         return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
     }
+
+    //修改商品信息
     @Override
     public Response<Map<String, Object>> updateGoods(GoodsInfo goodsInfo) {
         int result = goodsInfoMapper.updateById(goodsInfo);
@@ -62,6 +67,19 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         }
         return null;
     }
+
+    @Override
+    public Response<List<Map<String, Object>>> getAllGoods() {
+        List<GoodsInfo> list = goodsInfoMapper.selectList(null);
+        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
+    }
+    //添加商品图片
+    @Override
+    public Response<Map<String,Object>> addGoodsImage(GoodsImageInfo goodsImageInfo){
+        goodsImageInfoMapper.insert(goodsImageInfo);
+        return Response.success(ResponseCode.SUCCESS,Map.of("image_id",goodsImageInfo.getImage_id()));
+    }
+    //修改商品图片
     @Override
     public Response<Map<String, Object>> updateGoodsImage(GoodsImageInfo goodsImageInfo) {
         UpdateWrapper<GoodsImageInfo> updateWrapper = new UpdateWrapper<>();
@@ -71,6 +89,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         goodsImageInfoMapper.update(goodsImageInfo,updateWrapper);
         return Response.success(ResponseCode.SUCCESS, null);
     }
+
+    //删除商品
     @Override
     public Response<String> deleteGoods(Integer goods_id) {
         goodsInfoMapper.deleteById(goods_id);
@@ -80,17 +100,23 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         commentInfoMapper.delete(queryWrapper1.eq("goods_id",goods_id));
         return Response.success(ResponseCode.SUCCESS,null);
     }
+
+    //删除商品图片
     @Override
     public Response<String> deleteGoodsImage(Integer image_id) {
         QueryWrapper<GoodsImageInfo> queryWrapper = new QueryWrapper<>();
         goodsImageInfoMapper.delete(queryWrapper.eq("image_id",image_id));
         return Response.success(ResponseCode.SUCCESS, null);
     }
+
+    //添加评论
     @Override
     public Response<Map<String, Object>> addComment(CommentInfo commentInfo) {
         commentInfoMapper.insert(commentInfo);
         return Response.success(ResponseCode.SUCCESS, Map.of("comment_id", commentInfo.getComment_id()));
     }
+
+    //获取评论
     @Override
     public Response<Map<String, List<?>>> getComment(Integer goods_id) {
         Map<String, List<?>> result = new HashMap<>();
@@ -100,9 +126,20 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         result.put("commentInfo",list);
         return Response.success(ResponseCode.SUCCESS, result);
     }
+
+    //删除评论
     @Override
     public Response<String> deleteComment(int comment_id){
         commentInfoMapper.deleteById(comment_id);
         return Response.success(ResponseCode.SUCCESS, null);
+    }
+    @Override
+    public  void deleteStoreGoods(int store_id){
+        QueryWrapper<GoodsInfo> goodsInfoQueryWrapper=new QueryWrapper<>();
+        goodsInfoQueryWrapper.eq("store_id",store_id);
+        goodsInfoMapper.delete(goodsInfoQueryWrapper);
+        QueryWrapper<GoodsImageInfo> goodsImageInfoQueryWrapper=new QueryWrapper<>();
+        goodsImageInfoQueryWrapper.eq("goods_id",goodsInfoMapper.selectOne(goodsInfoQueryWrapper));
+        goodsImageInfoMapper.delete(goodsImageInfoQueryWrapper);
     }
 }

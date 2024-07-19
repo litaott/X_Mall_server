@@ -29,7 +29,7 @@ public class GoodsController {
     public Response<Map<String, Object>> registerGoods(@RequestBody GoodsInfo goodsInfo) {
         return goodsService.registerGoods(goodsInfo);
     }
-    @GetMapping("/goods/get_goods")
+    @GetMapping("/get_goods")
     public Response<List<Map<String, Object>>> getGoods(@RequestParam int goods_id) {
         return goodsService.getGoods(goods_id);
     }
@@ -40,6 +40,10 @@ public class GoodsController {
     @PutMapping("/update_goods_image")
     public Response<Map<String, Object>> updateGoodsImage(@RequestBody GoodsImageInfo goodsImageInfo) {
         return goodsService.updateGoodsImage(goodsImageInfo);
+    }
+    @PostMapping("/add_goods_image")
+    public Response<Map<String,Object>> addGoodsImage(@RequestBody GoodsImageInfo goodsImageInfo){
+        return goodsService.addGoodsImage(goodsImageInfo);
     }
     @DeleteMapping("/delete_goods")
     public Response<String> deleteGoods(@RequestParam Integer goods_id) {
@@ -52,6 +56,11 @@ public class GoodsController {
     @PostMapping("/add_comment")
     public Response<Map<String, Object>> addComment(@RequestBody CommentInfo commentInfo) {
         return goodsService.addComment(commentInfo);
+    }
+
+    @GetMapping("/get_all_goods")
+    Response<List<Map<String, Object>>>getAllGoods(){
+        return goodsService.getAllGoods();
     }
     @GetMapping("/get_comment")
     public Response<Map<String, List<?>>> getComment(@RequestParam Integer goods_id) {

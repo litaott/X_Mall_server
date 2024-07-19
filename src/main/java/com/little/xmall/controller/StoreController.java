@@ -2,6 +2,7 @@ package com.little.xmall.controller;
 
 
 import com.little.xmall.constant.Response;
+import com.little.xmall.entity.security.StorePassword;
 import com.little.xmall.entity.store.StoreInfo;
 import com.little.xmall.service.StoreService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,10 @@ public class StoreController {
     @PostMapping("/update")
     public Response<Map<String, Object>> updateStore(@RequestBody StoreInfo storeInfo) {
         return storeService.updateStore(storeInfo);
+    }
+    @PutMapping("/change_password")
+    public Response<Map<String, Object>> changePassword(StorePassword password){
+        return storeService.changePassword(password);
     }
     @PostMapping("/login")
     public Response<Map<String, Object>> login(@RequestBody Map<String, String> storeInfo) {
