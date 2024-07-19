@@ -31,38 +31,44 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-
-                .requestMatchers("/user/register","/test/login").permitAll()
-                .anyRequest().authenticated())
-
-                .formLogin((form) -> form
-                        .loginPage("/test/login")
-                        .permitAll() // 允许所有人访问登录页面
-                );
-
+                .anyRequest().permitAll());
         http.csrf().disable();
 
 
         http.cors();
         return http.build();
     }
-
-
-
-
-
-
-
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService)
-            throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .authenticationProvider(customAuthenticationProvider)
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder)
-                .and()
-                .build();
-    }
+//                .requestMatchers("/user/register","/test/login").permitAll()
+//                .anyRequest().authenticated())
+//
+//                .formLogin((form) -> form
+//                        .loginPage("/test/login")
+//                        .permitAll() // 允许所有人访问登录页面
+//                );
+//
+//        http.csrf().disable();
+//
+//
+//        http.cors();
+//        return http.build();
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    @Bean
+//    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService)
+//            throws Exception {
+//        return http.getSharedObject(AuthenticationManagerBuilder.class)
+//                .authenticationProvider(customAuthenticationProvider)
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder)
+//                .and()
+//                .build();
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
