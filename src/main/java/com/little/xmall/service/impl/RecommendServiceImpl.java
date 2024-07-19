@@ -1,16 +1,12 @@
 package com.little.xmall.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
 import com.little.xmall.entity.goods.GoodsInfo;
-import com.little.xmall.entity.user.CartInfo;
-import com.little.xmall.entity.user.UserInfo;
+import com.little.xmall.entity.recommend.RecommendGoods;
 import com.little.xmall.mapper.goods.GoodsInfoMapper;
-import com.little.xmall.mapper.user.CartInfoMapper;
-import com.little.xmall.mapper.user.UserInfoMapper;
 import com.little.xmall.service.RecommendService;
 import com.little.xmall.utils.MapUtil;
 import com.little.xmall.utils.RecommendUtil;
@@ -18,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,95 +26,46 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@DS("db_XMall_goods")
 public class RecommendServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements RecommendService {
 
     private final GoodsInfoMapper goodsInfoMapper;
-    private final UserInfoMapper userInfoMapper;
-    private final CartInfoMapper cartInfoMapper;
+    private final RecommendUtil recommendUtil;
 
-    @DS("db_XMall_goods")
     @Override
     public Response<List<Map<String, Object>>> recommendByUserId(int user_id) {
 
-//        List<Integer> recommendGoodsIds = RecommendUtil.recommendGoodsToUser(user_id, 10, calculateUserSimilarityMatrix(getUserIds()));
-//
-//        List<GoodsInfo> goodsInfos = goodsInfoMapper.selectBatchIds(recommendGoodsIds);
+        // 获取用户商品购买记录
+        List<Integer> userOrderGoodsIds = recommendUtil.getUserOrderGoodsIds(user_id);
+        List<GoodsInfo> userOrderGoodsInfo;
+        if (!userOrderGoodsIds.isEmpty())
+            userOrderGoodsInfo = goodsInfoMapper.selectBatchIds(userOrderGoodsIds);
+        else
+            userOrderGoodsInfo = new ArrayList<>();
 
-//        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(goodsInfos));
-        return null;
-    }
+        // 提取用户购买商品的推荐要素
+        List<RecommendGoods> userOrderGoods = new ArrayList<>();
+        for (GoodsInfo goodsInfo : userOrderGoodsInfo)
+            userOrderGoods.add(new RecommendGoods(goodsInfo));
 
-    @DS("db_XMall_user")
-    @Override
-    public List<Integer> getUserIds() {
+        // 获取全部商品信息
+        List<GoodsInfo> goodsList = goodsInfoMapper.selectList(null);
+        List<RecommendGoods> allGoods = new ArrayList<>();
 
-        LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(UserInfo::getUser_id);
-
-        List<UserInfo> userInfos = userInfoMapper.selectList(queryWrapper);
-
-        return userInfos.stream().map(UserInfo::getUser_id).toList();
-    }
-
-    @DS("db_XMall_user")
-    @Override
-    public List<Integer> getCartGoodsIds(int user_id) {
-
-        LambdaQueryWrapper<CartInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(CartInfo::getUser_id, user_id);
-
-        List<CartInfo> cartInfos = cartInfoMapper.selectList(queryWrapper);
-
-        return cartInfos.stream().map(CartInfo::getGoods_id).toList();
-    }
-
-    /**
-     * 计算用户相似度矩阵
-     */
-    public Map<Integer, Map<Integer, Double>> calculateUserSimilarityMatrix(List<Integer> userIds) {
-
-        // 创建相似度矩阵
-        Map<Integer, Map<Integer, Double>> similarityMatrix = new HashMap<>();
-
-        // 计算用户间的相似度
-        for (int userIdA : userIds) {
-
-            // 创建相似度矩阵行
-            Map<Integer, Double> similarityRow = new HashMap<>();
-
-            // 添加两个用户之间的相似度
-            for (int userIdB : userIds) {
-                if (userIdA != userIdB) {
-                    double similarity = calculateCosineSimilarity(userIdA, userIdB);
-                    similarityRow.put(userIdB, similarity);
-                }
-            }
-            similarityMatrix.put(userIdA, similarityRow);
-        }
-        return similarityMatrix;
-    }
-
-    /**
-     * 计算余弦相似度
-     */
-    public double calculateCosineSimilarity(int userIdA, int userIdB) {
-
-        // 获取用户A和用户B的购物车商品id
-        List<Integer> goodsIdsA = getCartGoodsIds(userIdA);
-        List<Integer> goodsIdsB = getCartGoodsIds(userIdB);
-
-        // 计算用户A和用户B共同加入购物车的商品数量
-        int commonLikedGoods = 0;
-        for (Integer goodsId : goodsIdsA){
-            if (goodsIdsB.contains(goodsId))
-                commonLikedGoods++;
+        // 去除用户已购买商品，并提取推荐要素
+        for (GoodsInfo goodsInfo : goodsList) {
+            if (!userOrderGoodsIds.contains(goodsInfo.getGoods_id()))
+                allGoods.add(new RecommendGoods(goodsInfo));
         }
 
-        // 计算用户A和用户B分别加入购物车的商品数量
-        int likedPostsA = goodsIdsA.size();
-        int likedPostsB = goodsIdsB.size();
+        // 根据推荐算法获取推荐商品
+        List<Integer> recommendGoodsIdsOrder = recommendUtil.recommendByUserId(user_id, userOrderGoods, allGoods);
 
-        // 计算余弦相似度
-        return commonLikedGoods / Math.sqrt(likedPostsA * likedPostsB);
+        List<GoodsInfo> goodsInfos = new ArrayList<>();
+        for (Integer recommendGoodsId : recommendGoodsIdsOrder)
+            goodsInfos.add(goodsInfoMapper.selectById(recommendGoodsId));
+
+        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(goodsInfos));
     }
+
 }

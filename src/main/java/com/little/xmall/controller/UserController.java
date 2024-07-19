@@ -116,8 +116,10 @@ public class UserController {
         return userService.getIfFollow(user_id,store_id);
     }
 
+
    @PutMapping("change_cart_goods")
     Response<String>changeCartGoods(@RequestParam int user_id,int goods_id,int quantity){
         return userService.changeCartGoods(user_id,goods_id,quantity);
    }
+
 }
