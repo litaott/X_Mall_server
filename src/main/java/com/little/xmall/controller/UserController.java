@@ -1,7 +1,7 @@
 package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
-import com.little.xmall.entity.security.Password;
+import com.little.xmall.entity.security.UserPassword;
 import com.little.xmall.entity.user.CartInfo;
 import com.little.xmall.entity.user.FollowInfo;
 import com.little.xmall.entity.user.UserInfo;
@@ -44,7 +44,7 @@ public class UserController {
         return userService.getUser(user_id);
     }
     @PutMapping("/change_user_password")
-    public Response<Map<String, Object>> changePassword(Password password){
+    public Response<Map<String, Object>> changePassword(UserPassword password){
         return userService.changePassword(password);
 }
     @PutMapping("/update_user")
@@ -53,10 +53,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<String> login(@RequestBody Map<String, String> userInfo) {
-        Integer userId = Integer.parseInt(userInfo.get("user_id"));
-        String password = userInfo.get("password");
-        return userService.login(userId, password);
+    public Response<String> login(@RequestBody Integer user_id,String password) {
+        return userService.login(user_id, password);
     }
 
     @DeleteMapping("/delete_user")

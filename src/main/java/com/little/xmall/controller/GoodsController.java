@@ -29,7 +29,7 @@ public class GoodsController {
     public Response<Map<String, Object>> registerGoods(@RequestBody GoodsInfo goodsInfo) {
         return goodsService.registerGoods(goodsInfo);
     }
-    @GetMapping("/goods/get_goods")
+    @GetMapping("/get_goods")
     public Response<List<Map<String, Object>>> getGoods(@RequestParam int goods_id) {
         return goodsService.getGoods(goods_id);
     }

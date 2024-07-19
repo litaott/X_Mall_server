@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
+import com.little.xmall.entity.security.StorePassword;
 import com.little.xmall.entity.store.StoreInfo;
 import com.little.xmall.mapper.store.StoreInfoMapper;
 import com.little.xmall.service.StoreService;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 /**
  * 商品信息Service实现类
  * @author Little
@@ -84,7 +87,25 @@ public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> im
         }
     }
     }
-
+    @Override
+    public Response<Map<String, Object>> changePassword(StorePassword password){
+        QueryWrapper<StoreInfo>storeInfoQueryWrapper=new QueryWrapper<>();
+        storeInfoQueryWrapper.eq("store_id",password.getStore_id());
+        StoreInfo storeInfo=storeInfoMapper.selectOne(storeInfoQueryWrapper);
+        if(!Objects.equals(storeInfo.getStore_id(), password.getStore_id())){
+            return Response.error(ResponseCode.FAIL,null);
+        }
+        else {
+            if(bCryptPasswordEncoder.matches(storeInfo.getPassword(),password.getOld_password())){
+                storeInfo.setPassword(bCryptPasswordEncoder.encode(password.getNew_password()));
+                storeInfoMapper.updateById(storeInfo);
+                return Response.success(ResponseCode.SUCCESS,null);
+            }
+            else {
+                return Response.error(ResponseCode.STORE_PASSWORD_ERROR,null);
+            }
+        }
+    }
     //商店注销
     @Override
     public Response<String> deleteStore(Integer store_id) {

@@ -2,6 +2,7 @@ package com.little.xmall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
+import com.little.xmall.entity.security.StorePassword;
 import com.little.xmall.entity.store.StoreInfo;
 
 import java.util.List;
@@ -40,6 +41,8 @@ public interface StoreService extends IService<StoreInfo>{
      * @return Response
      */
     Response<Map<String, Object>> login(Integer store_id, String password);
+
+    Response<Map<String, Object>> changePassword(StorePassword password);
 
     /**
      * 删除商店信息

@@ -7,7 +7,7 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
-import com.little.xmall.entity.security.Password;
+import com.little.xmall.entity.security.UserPassword;
 import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.entity.user.CartInfo;
 import com.little.xmall.entity.user.UserInfo;
@@ -55,7 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
 
         //查询用户输入的手机号是否重复
-        queryWrapper.eq("phone_number",userInfo.getPhone_number());
+        queryWrapper.eq("phone_number",userInfo.getPhone_number()).eq("username",userInfo.getUsername());
         UserInfo userInfo1=userInfoMapper.selectOne(queryWrapper);
 
         //如果用户输入已经注册过的手机号则会返回用户已注册
@@ -88,7 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     }
 //用户密码修改
     @Override
-    public Response<Map<String, Object>> changePassword(Password password){
+    public Response<Map<String, Object>> changePassword(UserPassword password){
         QueryWrapper<UserInfo>userInfoQueryWrapper=new QueryWrapper<>();
         userInfoQueryWrapper.eq("user_id",password.getUser_id());
         UserInfo userInfo=userInfoMapper.selectOne(userInfoQueryWrapper);

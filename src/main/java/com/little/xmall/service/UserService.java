@@ -2,7 +2,7 @@ package com.little.xmall.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
-import com.little.xmall.entity.security.Password;
+import com.little.xmall.entity.security.UserPassword;
 import com.little.xmall.entity.user.AddressInfo;
 import com.little.xmall.entity.user.CartInfo;
 import com.little.xmall.entity.user.FollowInfo;
@@ -40,11 +40,11 @@ public interface UserService extends IService<UserInfo>{
     Response<Map<String, Object>> updateUser(UserInfo userInfo);
 
     //用户密码修改
-    Response<Map<String, Object>> changePassword(Password password);
+    Response<Map<String, Object>> changePassword(UserPassword password);
 
     /**
      * 验证用户信息
-     * @param user_id 用户ID
+     * @param user_id 用户名
      * @param password 用户密码
      * @return Response
      */
