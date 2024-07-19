@@ -1,5 +1,6 @@
 package com.little.xmall.entity.recommend;
 
+import com.little.xmall.entity.goods.GoodsInfo;
 import lombok.Data;
 
 /**
@@ -12,7 +13,16 @@ public class RecommendGoods {
     private int goods_id;
     private String goods_name;
     private String category;
-    private float price;
+    private double price;
     private int sale_number;
+    private double score;
+
+    public RecommendGoods(GoodsInfo goodsInfo) {
+        this.goods_id = goodsInfo.getGoods_id();
+        this.goods_name = goodsInfo.getGoods_name();
+        this.category = goodsInfo.getCategory();
+        this.price = goodsInfo.getPrice();
+        this.sale_number = goodsInfo.getSale_number();
+    }
 
 }
