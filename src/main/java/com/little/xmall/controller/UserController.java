@@ -103,8 +103,4 @@ public class UserController {
     Response<String>getIfFollow(@RequestParam int user_id,int store_id){
         return userService.getIfFollow(user_id,store_id);
     }
-    @GetMapping("/user/get_cart")
-    public Response<List<Map<String, Object>>> getCart(@RequestParam int user_id) {
-        return userService.getCart(user_id);
-    }
 }
