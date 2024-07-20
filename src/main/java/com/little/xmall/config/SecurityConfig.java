@@ -22,11 +22,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
 public class SecurityConfig {
 
 
-    private final CustomAuthenticationProvider customAuthenticationProvider;
-
-    public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
-        this.customAuthenticationProvider = customAuthenticationProvider;
-    }
+//    private final CustomAuthenticationProvider customAuthenticationProvider;
+//
+//    public SecurityConfig(CustomAuthenticationProvider customAuthenticationProvider) {
+//        this.customAuthenticationProvider = customAuthenticationProvider;
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

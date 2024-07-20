@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<String> login(@RequestBody Integer user_id,String password) {
+    public Response<String> login(@RequestParam Integer user_id,String password) {
         return userService.login(user_id, password);
     }
 
