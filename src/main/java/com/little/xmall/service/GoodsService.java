@@ -27,7 +27,7 @@ public interface GoodsService extends IService<GoodsInfo>{
      * @param goods_id 商品ID
      * @return Response
      */
-    Response<List<Map<String, Object>>> getGoods(Integer goods_id);
+    Response<Map<String, Object>>getGoods(Integer goods_id);
 
     /**
      * 修改商品信息

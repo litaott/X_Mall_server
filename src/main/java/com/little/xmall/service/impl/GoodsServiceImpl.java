@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,9 +54,17 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
 
     //获取商品信息
     @Override
-    public Response<List<Map<String, Object>>> getGoods(Integer goods_id) {
-        List<GoodsInfo> list = goodsInfoMapper.selectByMap(Map.of("goods_id", goods_id));
-        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
+    public Response<Map<String, Object>> getGoods(Integer goods_id) {
+        GoodsInfo goodsInfo=goodsInfoMapper.selectById(goods_id);
+        QueryWrapper<GoodsImageInfo> goodsImageInfoQueryWrapper=new QueryWrapper<>();
+        List<GoodsImageInfo> list=goodsImageInfoMapper.selectList(goodsImageInfoQueryWrapper.eq("goods_id",goods_id));
+        List<String>goodsList=new ArrayList<>();
+        for(GoodsImageInfo goodsImageInfo : list){
+            goodsList.add(goodsImageInfo.getImage_url());
+        }
+        goodsInfo.setImages(goodsList);
+        return Response.success(ResponseCode.SUCCESS,MapUtil.getMap(goodsInfo) );
+
     }
 
     //修改商品信息

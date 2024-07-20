@@ -30,7 +30,7 @@ public class GoodsController {
         return goodsService.registerGoods(goodsInfo);
     }
     @GetMapping("/get_goods")
-    public Response<List<Map<String, Object>>> getGoods(@RequestParam int goods_id) {
+    public Response<Map<String, Object>> getGoods(@RequestParam int goods_id) {
         return goodsService.getGoods(goods_id);
     }
     @PutMapping("/update_goods")
