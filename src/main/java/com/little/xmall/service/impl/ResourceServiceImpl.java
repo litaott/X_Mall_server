@@ -35,19 +35,23 @@ public class ResourceServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         List<String> urls = new ArrayList<>();
         for (MultipartFile file : files){
             try {
+
                 //原始文件名
                 String originalFilename = file.getOriginalFilename();
+
                 //截取原始文件名的后缀
                 String extension = null;
                 if (originalFilename != null) {
                     extension = originalFilename.substring(originalFilename.lastIndexOf("."));
                 }
+
                 //构造新文件名称
                 String objectName = UUID.randomUUID() + extension;
 
                 //文件的请求路径
                 String filePath = ossUtil.upload(file.getBytes(), objectName);
                 urls.add(filePath);
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
