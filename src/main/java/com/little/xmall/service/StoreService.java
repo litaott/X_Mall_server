@@ -83,4 +83,9 @@ public interface StoreService extends IService<StoreInfo>{
      * @return String
      */
     String getStoreName(Integer store_id);
+
+    /**
+     * 增加商店营收额
+     */
+    void addRevenue(Integer store_id, float revenue);
 }

@@ -96,14 +96,14 @@ public class RecommendUtil {
             goodsList.get(i).setScore(score);
         }
 
-        // 依据相似用户购物车赋分
-        List<Integer> recommendGoodsIdsSimilar = recommendBySimilarUser(user_id);
-        for (RecommendGoods goods : goodsList){
-            if (recommendGoodsIdsSimilar.contains(goods.getGoods_id())){
-                score = goods.getScore() + similarFactor;
-                goods.setScore(score);
-            }
-        }
+//        // 依据相似用户购物车赋分
+//        List<Integer> recommendGoodsIdsSimilar = recommendBySimilarUser(user_id);
+//        for (RecommendGoods goods : goodsList){
+//            if (recommendGoodsIdsSimilar.contains(goods.getGoods_id())){
+//                score = goods.getScore() + similarFactor;
+//                goods.setScore(score);
+//            }
+//        }
 
         // 依据最终得分排序
         goodsList.sort(Comparator.comparingDouble(RecommendGoods::getScore).reversed());
@@ -141,10 +141,7 @@ public class RecommendUtil {
      */
     public List<Integer> getUserOrderGoodsIds(int user_id) {
 
-        List<Map<String, Object>> orderMaps = orderService.getUserOrder(user_id).getData();
-        if (orderMaps == null)
-            orderMaps = new ArrayList<>();
-        List<OrderInfo> orderInfos = MapUtil.fromMapList(orderMaps, OrderInfo.class);
+        List<OrderInfo> orderInfos = orderService.getUserOrder(user_id).getData();
         List<Integer> goodsIds = new ArrayList<>();
         for (OrderInfo orderInfo : orderInfos) {
             goodsIds.addAll(orderInfo.getGoods_list().stream().map(OrderItemInfo::getGoods_id).toList());

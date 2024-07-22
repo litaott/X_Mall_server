@@ -144,4 +144,10 @@ public interface UserService extends IService<UserInfo>{
      * @return Response
      */
     Response<String>getIfFollow(int user_id, int store_id);
+
+    /**
+     * 扣减用户余额
+     * @param user_id 用户ID
+     */
+    void declineBalance(int user_id, float price);
 }

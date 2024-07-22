@@ -261,6 +261,13 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
             return Response.error(ResponseCode.USER_NOT_FOLLOW,null);
         }
     }
+
+    @Override
+    public void declineBalance(int user_id, float price) {
+        UserInfo userInfo = userInfoMapper.selectById(user_id);
+        userInfo.setBalance(userInfo.getBalance() - price);
+        userInfoMapper.updateById(userInfo);
+    }
 }
 
 

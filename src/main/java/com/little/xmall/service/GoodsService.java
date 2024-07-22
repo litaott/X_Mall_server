@@ -84,4 +84,11 @@ public interface GoodsService extends IService<GoodsInfo>{
     Response<String> deleteComment(int comment_id);
 
     void deleteStoreGoods(int store_id);
+
+    /**
+     * 减少商品库存
+     * @param goods_id 商品ID
+     * @param quantity 减少数量
+     */
+    void declineQuantity(int goods_id, int quantity);
 }

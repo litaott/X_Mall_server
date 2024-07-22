@@ -157,4 +157,12 @@ public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> im
     public String getStoreName(Integer store_id) {
         return storeInfoMapper.selectById(store_id).getStore_name();
     }
+
+    //增加商店营收额方法
+    @Override
+    public void addRevenue(Integer store_id, float revenue) {
+        StoreInfo storeInfo=storeInfoMapper.selectById(store_id);
+        storeInfo.setRevenue(storeInfo.getRevenue()+revenue);
+        storeInfoMapper.updateById(storeInfo);
+    }
 }
