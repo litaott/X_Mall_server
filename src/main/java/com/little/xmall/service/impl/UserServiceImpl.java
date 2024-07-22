@@ -7,15 +7,11 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
+import com.little.xmall.entity.goods.GoodsInfo;
 import com.little.xmall.entity.security.UserPassword;
-import com.little.xmall.entity.user.AddressInfo;
-import com.little.xmall.entity.user.CartInfo;
-import com.little.xmall.entity.user.UserInfo;
-import com.little.xmall.entity.user.FollowInfo;
-import com.little.xmall.mapper.user.AddressInfoMapper;
-import com.little.xmall.mapper.user.FollowInfoMapper;
-import com.little.xmall.mapper.user.UserInfoMapper;
-import com.little.xmall.mapper.user.CartInfoMapper;
+import com.little.xmall.entity.user.*;
+import com.little.xmall.mapper.goods.GoodsInfoMapper;
+import com.little.xmall.mapper.user.*;
 
 import com.little.xmall.service.UserService;
 import com.little.xmall.utils.MapUtil;
@@ -46,10 +42,13 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     private final CartInfoMapper cartInfoMapper;
     private final FollowInfoMapper followInfoMapper;
     private final StoreServiceImpl storeServiceImpl;
+    private final HistoryInfoMapper historyInfoMapper;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
 
-//
+    //
     @Override
     public Response<Map<String, Object>> registerUser(UserInfo userInfo) {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
@@ -267,6 +266,41 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         UserInfo userInfo = userInfoMapper.selectById(user_id);
         userInfo.setBalance(userInfo.getBalance() - price);
         userInfoMapper.updateById(userInfo);
+
+    @Override
+    public Response<Map<String,Object>>addRecord(HistoryInfo historyInfo){
+        QueryWrapper<HistoryInfo>historyInfoQueryWrapper=new QueryWrapper<>();
+        HistoryInfo historyInfo1= historyInfoMapper.selectOne(historyInfoQueryWrapper.eq("goods_id",historyInfo.getGoods_id()));
+        if(historyInfo1==null){
+            historyInfoMapper.insert(historyInfo);
+            return Response.success(ResponseCode.SUCCESS,null);
+        }
+        else {
+            historyInfoMapper.update(historyInfoQueryWrapper.eq("goods_id",historyInfo.getGoods_id()));
+            return Response.success(ResponseCode.SUCCESS,null);
+        }
+    }
+    @Override
+    public Response<List<Map<String,Object>>>getRecord(){
+        List<HistoryInfo>list=historyInfoMapper.selectList(null);
+        List<GoodsInfo>goodsInfoList=goodsInfoMapper.selectList(null);
+        for (HistoryInfo historyInfo:list){
+            for (GoodsInfo goodsInfo:goodsInfoList){
+                if(Objects.equals(historyInfo.getGoods_id(), goodsInfo.getGoods_id())){
+                    historyInfo.setGoodsInfo(goodsInfo);
+                }
+            }
+        }
+        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
+    }
+    @Override
+    public Response<String>deleteRecord(Integer goods_id){
+        QueryWrapper<HistoryInfo>historyInfoQueryWrapper=new QueryWrapper<>();
+        historyInfoQueryWrapper.eq("goods_id",goods_id);
+        HistoryInfo historyInfo=historyInfoMapper.selectOne(historyInfoQueryWrapper);;
+        historyInfo.setIs_delete(false);
+        historyInfoMapper.update(historyInfo,historyInfoQueryWrapper);
+        return Response.success(ResponseCode.SUCCESS,null);
     }
 }
 

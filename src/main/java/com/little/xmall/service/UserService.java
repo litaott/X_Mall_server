@@ -3,10 +3,7 @@ package com.little.xmall.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.security.UserPassword;
-import com.little.xmall.entity.user.AddressInfo;
-import com.little.xmall.entity.user.CartInfo;
-import com.little.xmall.entity.user.FollowInfo;
-import com.little.xmall.entity.user.UserInfo;
+import com.little.xmall.entity.user.*;
 
 
 import java.util.Map;
@@ -150,4 +147,11 @@ public interface UserService extends IService<UserInfo>{
      * @param user_id 用户ID
      */
     void declineBalance(int user_id, float price);
+  
+    Response<Map<String,Object>>addRecord(HistoryInfo historyInfo);
+
+    Response<List<Map<String,Object>>>getRecord();
+
+    Response<String>deleteRecord(Integer goods_id);
+
 }
