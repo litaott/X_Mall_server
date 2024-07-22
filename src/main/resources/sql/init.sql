@@ -15,7 +15,7 @@ create table user_info
         comment '余额',
     phone_number  varchar(20)         not null
         comment '电话号码',
-    avatar        varchar(1023)       not null default 'user_default.png'
+    avatar        varchar(1023)       not null default 'https://xiaoxiang-mall.oss-cn-wuhan-lr.aliyuncs.com/user_default.jpg'
         comment '头像',
     gender_index  int                 not null default 0
         comment '用户性别，0:未知 1:男 2:女',
@@ -159,7 +159,7 @@ create table store_info
         comment '店铺总营收',
     fans_number  int            not null default 0
         comment '粉丝数',
-    image        varchar(255)
+    image        varchar(255)   not null default 'https://xiaoxiang-mall.oss-cn-wuhan-lr.aliyuncs.com/store_default.jpg'
         comment '展示图片',
     create_time  datetime       not null
         comment '创建时间'

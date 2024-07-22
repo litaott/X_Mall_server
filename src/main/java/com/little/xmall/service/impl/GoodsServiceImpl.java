@@ -161,4 +161,11 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
         goodsImageInfoQueryWrapper.eq("goods_id",goodsInfoMapper.selectOne(goodsInfoQueryWrapper));
         goodsImageInfoMapper.delete(goodsImageInfoQueryWrapper);
     }
+
+    @Override
+    public void declineQuantity(int goods_id, int quantity) {
+        GoodsInfo goodsInfo=goodsInfoMapper.selectById(goods_id);
+        goodsInfo.setQuantity(goodsInfo.getQuantity()-quantity);
+        goodsInfoMapper.updateById(goodsInfo);
+    }
 }

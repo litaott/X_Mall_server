@@ -9,7 +9,10 @@ import com.little.xmall.entity.order.OrderInfo;
 import com.little.xmall.entity.order.OrderItemInfo;
 import com.little.xmall.mapper.order.OrderInfoMapper;
 import com.little.xmall.mapper.order.OrderItemInfoMapper;
+import com.little.xmall.service.GoodsService;
 import com.little.xmall.service.OrderService;
+import com.little.xmall.service.StoreService;
+import com.little.xmall.service.UserService;
 import com.little.xmall.utils.MapUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
 
     private final OrderInfoMapper orderInfoMapper;
     private final OrderItemInfoMapper orderItemInfoMapper;
+    private final StoreService storeService;
+    private final UserService userService;
+    private final GoodsService goodsService;
 
     @Override
     public Response<Map<String, Object>> createOrder(OrderInfo orderInfo) {
@@ -53,7 +59,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
     }
 
     @Override
-    public Response<List<Map<String, Object>>> getUserOrder(int user_id) {
+    public Response<List<OrderInfo>> getUserOrder(int user_id) {
 
         LambdaQueryWrapper<OrderInfo> order_queryWrapper = new LambdaQueryWrapper<>();
 
@@ -72,7 +78,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
             orderInfo.setGoods_list(orderItemInfoMapper.selectList(item_queryWrapper));
         }
 
-        return Response.success(ResponseCode.ORDER_GET_SUCCESS, MapUtil.getMapList(list));
+        return Response.success(ResponseCode.ORDER_GET_SUCCESS, list);
     }
 
     @Override
@@ -115,6 +121,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
         switch (status_index) {
             // 订单支付成功
             case 0 -> {
+
+                // 若使用余额支付，扣除用户余额
+                if (o.getPay_way_index() == 2)
+                    userService.declineBalance(o.getUser_id(), o.getTotal_price());
+
+                // 增加商店营收额
+                storeService.addRevenue(o.getStore_id(), o.getTotal_price());
+
                 o.setStatus_index(1);
                 o.setPay_time(orderInfo.getPay_time());
                 o.setPay_way(orderInfo.getPay_way());
@@ -122,7 +136,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
                 return Response.success(ResponseCode.ORDER_PAY_SUCCESS, Map.of("order_id", o.getOrder_id()));
             }
             // 订单已支付（失败）
-            case 1,2,3,4 -> {
+            case 1, 2, 3, 4 -> {
                 return Response.error(ResponseCode.ORDER_ALREADY_PAY, null);
             }
             default -> {
@@ -151,6 +165,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
             }
             // 订单发货成功
             case 1 -> {
+
+                // 减少商品库存
+                for (OrderItemInfo itemInfo : o.getGoods_list()) {
+                    goodsService.declineQuantity(itemInfo.getGoods_id(), itemInfo.getQuantity());
+                }
+
                 o.setStatus_index(2);
                 o.setSend_time(orderInfo.getSend_time());
                 orderInfoMapper.updateById(o);

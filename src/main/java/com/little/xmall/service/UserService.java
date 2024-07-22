@@ -142,9 +142,16 @@ public interface UserService extends IService<UserInfo>{
      */
     Response<String>getIfFollow(int user_id, int store_id);
 
+    /**
+     * 扣减用户余额
+     * @param user_id 用户ID
+     */
+    void declineBalance(int user_id, float price);
+  
     Response<Map<String,Object>>addRecord(HistoryInfo historyInfo);
 
     Response<List<Map<String,Object>>>getRecord();
 
     Response<String>deleteRecord(Integer goods_id);
+
 }

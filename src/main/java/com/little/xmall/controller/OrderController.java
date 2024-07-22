@@ -42,7 +42,7 @@ public class OrderController {
      * @return Response
      */
     @GetMapping("/get_user_order")
-    public Response<List<Map<String, Object>>> getUserOrder(int user_id) {
+    public Response<List<OrderInfo>> getUserOrder(int user_id) {
         return orderService.getUserOrder(user_id);
     }
 
