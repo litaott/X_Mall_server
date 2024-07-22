@@ -79,8 +79,18 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> im
 
     @Override
     public Response<List<Map<String, Object>>> getAllGoods() {
-        List<GoodsInfo> list = goodsInfoMapper.selectList(null);
-        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(list));
+        List<GoodsImageInfo>goodsImageList=goodsImageInfoMapper.selectList(null);
+        List<GoodsInfo> goodsList = goodsInfoMapper.selectList(null);
+
+        for(GoodsInfo goodsInfo:goodsList){
+            List<String>list=new ArrayList<>();
+            for (GoodsImageInfo goodsImageInfo:goodsImageList){
+                if(goodsImageInfo.getGoods_id()==goodsInfo.getGoods_id()){
+                list.add(goodsImageInfo.getImage_url());}
+            }
+            goodsInfo.setImages(list);
+        }
+        return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(goodsList));
     }
     //添加商品图片
     @Override
