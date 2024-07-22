@@ -34,7 +34,6 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 @DS("db_XMall_user")
-
 public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserService {
 
     private final UserInfoMapper userInfoMapper;
@@ -43,10 +42,8 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     private final FollowInfoMapper followInfoMapper;
     private final StoreServiceImpl storeServiceImpl;
     private final HistoryInfoMapper historyInfoMapper;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private GoodsInfoMapper goodsInfoMapper;
+    private final GoodsInfoMapper goodsInfoMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     //
     @Override
@@ -266,6 +263,7 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         UserInfo userInfo = userInfoMapper.selectById(user_id);
         userInfo.setBalance(userInfo.getBalance() - price);
         userInfoMapper.updateById(userInfo);
+    }
 
     @Override
     public Response<Map<String,Object>>addRecord(HistoryInfo historyInfo){
