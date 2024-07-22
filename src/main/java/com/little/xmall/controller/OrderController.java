@@ -47,6 +47,17 @@ public class OrderController {
     }
 
     /**
+     * 获取店铺订单列表
+     *
+     * @param store_id 店铺id
+     * @return Response
+     */
+    @GetMapping("/get_store_order")
+    public Response<List<Map<String, Object>>> getStoreOrder(int store_id) {
+        return orderService.getStoreOrder(store_id);
+    }
+
+    /**
      * 用户支付订单
      *
      * @param orderInfo 订单信息
