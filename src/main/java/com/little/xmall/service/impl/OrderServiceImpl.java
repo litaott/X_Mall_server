@@ -56,7 +56,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
     public Response<List<Map<String, Object>>> getUserOrder(int user_id) {
 
         LambdaQueryWrapper<OrderInfo> order_queryWrapper = new LambdaQueryWrapper<>();
-        LambdaQueryWrapper<OrderItemInfo> item_queryWrapper = new LambdaQueryWrapper<>();
 
         // 获取订单信息列表
         order_queryWrapper.eq(OrderInfo::getUser_id, user_id);
@@ -68,11 +67,36 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
 
         // 添加订单商品信息
         for (OrderInfo orderInfo : list) {
+            LambdaQueryWrapper<OrderItemInfo> item_queryWrapper = new LambdaQueryWrapper<>();
             item_queryWrapper.eq(OrderItemInfo::getOrder_id, orderInfo.getOrder_id());
             orderInfo.setGoods_list(orderItemInfoMapper.selectList(item_queryWrapper));
         }
 
         return Response.success(ResponseCode.ORDER_GET_SUCCESS, MapUtil.getMapList(list));
+    }
+
+    @Override
+    public Response<List<Map<String, Object>>> getStoreOrder(int store_id) {
+
+        LambdaQueryWrapper<OrderInfo> order_queryWrapper = new LambdaQueryWrapper<>();
+
+        // 获取订单信息列表
+        order_queryWrapper.eq(OrderInfo::getStore_id, store_id);
+        List<OrderInfo> list = orderInfoMapper.selectList(order_queryWrapper);
+
+        // 订单列表为空
+        if (list.isEmpty())
+            return Response.error(ResponseCode.ORDER_GET_SUCCESS, null);
+
+        // 添加订单商品信息
+        for (OrderInfo orderInfo : list) {
+            LambdaQueryWrapper<OrderItemInfo> item_queryWrapper = new LambdaQueryWrapper<>();
+            item_queryWrapper.eq(OrderItemInfo::getOrder_id, orderInfo.getOrder_id());
+            orderInfo.setGoods_list(orderItemInfoMapper.selectList(item_queryWrapper));
+        }
+
+        return Response.success(ResponseCode.ORDER_GET_SUCCESS, MapUtil.getMapList(list));
+
     }
 
     @Override

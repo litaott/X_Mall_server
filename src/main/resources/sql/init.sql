@@ -99,7 +99,7 @@ create table goods_info
     sale_number    int            not null default 0
         comment '当前销量',
     category_index int            not null default 0
-        comment '商品类别，0:数码产品 1:家用电器',
+        comment '商品类别，0:粮食 1:果蔬 2:畜牧 3:加工食品 4:农具设备 5:节庆礼品',
     create_time    datetime       not null
         comment '上架时间',
     insurance      varchar(255)
