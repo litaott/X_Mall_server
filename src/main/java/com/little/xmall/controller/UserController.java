@@ -2,10 +2,7 @@ package com.little.xmall.controller;
 
 import com.little.xmall.constant.Response;
 import com.little.xmall.entity.security.UserPassword;
-import com.little.xmall.entity.user.CartInfo;
-import com.little.xmall.entity.user.FollowInfo;
-import com.little.xmall.entity.user.UserInfo;
-import com.little.xmall.entity.user.AddressInfo;
+import com.little.xmall.entity.user.*;
 import com.little.xmall.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -117,9 +114,21 @@ public class UserController {
     }
 
 
-   @PutMapping("change_cart_goods")
+   @PutMapping("/change_cart_goods")
     Response<String>changeCartGoods(@RequestParam int user_id,int goods_id,int quantity){
         return userService.changeCartGoods(user_id,goods_id,quantity);
    }
+   @PostMapping("/addRecord")
+   Response<Map<String,Object>>addRecord(@RequestBody HistoryInfo historyInfo){
+        return userService.addRecord(historyInfo);
+   }
+   @GetMapping("/getRecord")
+   Response<List<Map<String,Object>>>getRecord(){
+        return userService.getRecord();
+   }
+   @PutMapping("/deleteRecord")
+       Response<String>deleteRecord(@RequestParam Integer goods_id){
+           return userService.deleteRecord(goods_id);
+       }
+   }
 
-}
