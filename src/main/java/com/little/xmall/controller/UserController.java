@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * 用户控制器
+ *
  * @author Little
  */
 @Slf4j
@@ -40,22 +41,24 @@ public class UserController {
     public Response<List<Map<String, Object>>> getUser(@RequestParam int user_id) {
         return userService.getUser(user_id);
     }
+
     @PutMapping("/change_user_password")
-    public Response<Map<String, Object>> changePassword(UserPassword password){
+    public Response<Map<String, Object>> changePassword(@RequestBody UserPassword password) {
         return userService.changePassword(password);
-}
+    }
+
     @PutMapping("/update_user")
     public Response<Map<String, Object>> updateUser(@RequestBody UserInfo userInfo) {
         return userService.updateUser(userInfo);
     }
 
     @PostMapping("/login")
-    public Response<String> login(@RequestParam Integer user_id,String password) {
+    public Response<String> login(@RequestParam Integer user_id, String password) {
         return userService.login(user_id, password);
     }
 
     @DeleteMapping("/delete_user")
-    public Response<String> deleteUser(@RequestParam int user_id){
+    public Response<String> deleteUser(@RequestParam int user_id) {
         return userService.deleteUser(user_id);
     }
 
@@ -70,13 +73,13 @@ public class UserController {
     }
 
     @GetMapping("/get_address")
-    public Response<List<Map<String, Object>>> getAddress(@RequestParam Integer user_id){
+    public Response<List<Map<String, Object>>> getAddress(@RequestParam Integer user_id) {
         return userService.getAddress(user_id);
     }
 
     @DeleteMapping("/delete_address")
     public Response<String> deleteAddress(@RequestParam Integer address_id) {
-            return userService.deleteAddress(address_id);
+        return userService.deleteAddress(address_id);
     }
 
     @PostMapping("/add_cart")
@@ -90,8 +93,8 @@ public class UserController {
     }
 
     @DeleteMapping("/delete_cart")
-    public Response<String> deleteAddress(@RequestParam int user_id,int goods_id) {
-        return userService.deleteCart(user_id,goods_id);
+    public Response<String> deleteAddress(@RequestParam int user_id, int goods_id) {
+        return userService.deleteCart(user_id, goods_id);
     }
 
     @PostMapping("/add_follow")
@@ -100,35 +103,39 @@ public class UserController {
     }
 
     @DeleteMapping("/delete_follow")
-    public Response<String> deleteFollow(@RequestParam int store_id,int user_id) {
-        return userService.deleteFollow(store_id,user_id);
+    public Response<String> deleteFollow(@RequestParam int store_id, int user_id) {
+        return userService.deleteFollow(store_id, user_id);
     }
+
     @GetMapping("/get_follow")
-    Response<Map<String, List<?>>>getFollow(@RequestParam int user_id){
+    Response<Map<String, List<?>>> getFollow(@RequestParam int user_id) {
         return userService.getFollow(user_id);
     }
 
     @GetMapping("/get_if_follow")
-    Response<String>getIfFollow(@RequestParam int user_id,int store_id){
-        return userService.getIfFollow(user_id,store_id);
+    Response<String> getIfFollow(@RequestParam int user_id, int store_id) {
+        return userService.getIfFollow(user_id, store_id);
     }
 
 
-   @PutMapping("/change_cart_goods")
-    Response<String>changeCartGoods(@RequestParam int user_id,int goods_id,int quantity){
-        return userService.changeCartGoods(user_id,goods_id,quantity);
-   }
-   @PostMapping("/addRecord")
-   Response<Map<String,Object>>addRecord(@RequestBody HistoryInfo historyInfo){
+    @PutMapping("/change_cart_goods")
+    Response<String> changeCartGoods(@RequestParam int user_id, int goods_id, int quantity) {
+        return userService.changeCartGoods(user_id, goods_id, quantity);
+    }
+
+    @PostMapping("/addRecord")
+    Response<Map<String, Object>> addRecord(@RequestBody HistoryInfo historyInfo) {
         return userService.addRecord(historyInfo);
-   }
-   @GetMapping("/getRecord")
-   Response<List<Map<String,Object>>>getRecord(){
-        return userService.getRecord();
-   }
-   @PutMapping("/deleteRecord")
-       Response<String>deleteRecord(@RequestParam Integer goods_id){
-           return userService.deleteRecord(goods_id);
-       }
-   }
+    }
+
+    @GetMapping("/getRecord")
+    Response<List<Map<String, Object>>> getRecord(@RequestParam Integer user_id) {
+        return userService.getRecord(user_id);
+    }
+
+    @PutMapping("/deleteRecord")
+    Response<String> deleteRecord(@RequestParam Integer user_id, Integer goods_id) {
+        return userService.deleteRecord(user_id, goods_id);
+    }
+}
 

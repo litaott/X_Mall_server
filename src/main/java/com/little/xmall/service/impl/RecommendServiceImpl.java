@@ -1,11 +1,14 @@
 package com.little.xmall.service.impl;
 
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.little.xmall.constant.Response;
 import com.little.xmall.constant.ResponseCode;
+import com.little.xmall.entity.goods.GoodsImageInfo;
 import com.little.xmall.entity.goods.GoodsInfo;
 import com.little.xmall.entity.recommend.RecommendGoods;
+import com.little.xmall.mapper.goods.GoodsImageInfoMapper;
 import com.little.xmall.mapper.goods.GoodsInfoMapper;
 import com.little.xmall.service.RecommendService;
 import com.little.xmall.utils.MapUtil;
@@ -30,6 +33,7 @@ import java.util.Map;
 public class RecommendServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo> implements RecommendService {
 
     private final GoodsInfoMapper goodsInfoMapper;
+    private final GoodsImageInfoMapper goodsImageInfoMapper;
     private final RecommendUtil recommendUtil;
 
     @Override
@@ -62,8 +66,14 @@ public class RecommendServiceImpl extends ServiceImpl<GoodsInfoMapper, GoodsInfo
         List<Integer> recommendGoodsIdsOrder = recommendUtil.recommendByUserId(user_id, userOrderGoods, allGoods);
 
         List<GoodsInfo> goodsInfos = new ArrayList<>();
-        for (Integer recommendGoodsId : recommendGoodsIdsOrder)
-            goodsInfos.add(goodsInfoMapper.selectById(recommendGoodsId));
+        for (Integer recommendGoodsId : recommendGoodsIdsOrder) {
+            GoodsInfo goodsInfo = goodsInfoMapper.selectById(recommendGoodsId);
+            LambdaQueryWrapper<GoodsImageInfo> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(GoodsImageInfo::getGoods_id, recommendGoodsId);
+            List<String> images = goodsImageInfoMapper.selectList(queryWrapper).stream().map(GoodsImageInfo::getImage_url).toList();
+            goodsInfo.setImages(images);
+            goodsInfos.add(goodsInfo);
+        }
 
         return Response.success(ResponseCode.SUCCESS, MapUtil.getMapList(goodsInfos));
     }

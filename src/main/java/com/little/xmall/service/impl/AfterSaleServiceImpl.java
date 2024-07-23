@@ -39,7 +39,7 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
         afterSaleMapper.insert(afterSaleInfo);
 
         int id = afterSaleInfo.getAfter_sale_id();
-        return Response.success(ResponseCode.AFTER_SALE_APPLY_SUCCESS, Map.of("after_sale_id",id));
+        return Response.success(ResponseCode.AFTER_SALE_APPLY_SUCCESS, Map.of("after_sale_id", id));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
         afterSaleMapper.updateById(a);
 
         int id = a.getAfter_sale_id();
-        return Response.success(ResponseCode.AFTER_SALE_HANDLE_SUCCESS, Map.of("after_sale_id",id));
+        return Response.success(ResponseCode.AFTER_SALE_HANDLE_SUCCESS, Map.of("after_sale_id", id));
     }
 
     @Override

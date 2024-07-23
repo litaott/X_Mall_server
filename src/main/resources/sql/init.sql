@@ -45,7 +45,7 @@ create table address_info
     is_default   boolean      not null default true
         comment '默认标记',
     label_index  int
-        comment '地址标签，0:家 1:学校 2:公司'
+        comment '地址标签，0:无标签 1:学校 2:公司 3:家'
 ) comment '地址信息表' charset = utf8;
 
 create table cart_info

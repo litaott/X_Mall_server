@@ -22,10 +22,10 @@ public class Response<T> {
         return r;
     }
 
-    public static <T> Response<T> error(ResponseCode resultCode, T data) {
+    public static <T> Response<T> error(ResponseCode responseCode, T data) {
         Response<T> r = new Response<>();
-        r.setCode(resultCode.getCode());
-        r.setMessage(resultCode.getMsg());
+        r.setCode(responseCode.getCode());
+        r.setMessage(responseCode.getMsg());
         r.setData(data);
         return r;
     }

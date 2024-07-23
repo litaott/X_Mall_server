@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * 搜索服务接口
+ *
  * @author Little
  */
 public interface SearchService extends IService<GoodsInfo> {

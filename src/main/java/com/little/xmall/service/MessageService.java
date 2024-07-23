@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * 消息服务接口
+ *
  * @author Little
  */
 public interface MessageService extends IService<MessageInfo> {
@@ -19,15 +20,16 @@ public interface MessageService extends IService<MessageInfo> {
      * @param messageInfo 消息信息
      * @return Response
      */
-    Response<Map<String,Object>> sendMessage(MessageInfo messageInfo);
+    Response<Map<String, Object>> sendMessage(MessageInfo messageInfo);
 
     /**
      * 获取用户与商家聊天记录
-     * @param user_id       用户id
-     * @param store_id      商家id
+     *
+     * @param user_id  用户id
+     * @param store_id 商家id
      * @return Response
      */
-    Response<List<Map<String,Object>>> getMessage(int user_id, int store_id);
+    Response<List<Map<String, Object>>> getMessage(int user_id, int store_id);
 
 
 }

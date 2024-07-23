@@ -31,7 +31,6 @@ public class RecommendUtil {
     private final OrderService orderService;
 
 
-
     /**
      * 综合目标用户信息推荐商品
      */
@@ -52,9 +51,9 @@ public class RecommendUtil {
 
         // 依据商品名与用户历史购买商品名匹配度赋分
         int[] result;
-        for (RecommendGoods goods : goodsList){
+        for (RecommendGoods goods : goodsList) {
             goods.setScore(100);
-            for (RecommendGoods userGoods : userOrderGoods){
+            for (RecommendGoods userGoods : userOrderGoods) {
                 result = SearchUtil.fuzzyMatch(goods.getGoods_name(), userGoods.getGoods_name());
                 if (result[0] == 1)
                     goods.setScore(Math.min(goods.getScore(), result[1]));
@@ -71,9 +70,9 @@ public class RecommendUtil {
         }
 
         // 依据商品类别与用户历史购买商品类别匹配度赋分
-        for (RecommendGoods goods : goodsList){
-            for (RecommendGoods userGoods : userOrderGoods){
-                if (goods.getCategory().equals(userGoods.getCategory())){
+        for (RecommendGoods goods : goodsList) {
+            for (RecommendGoods userGoods : userOrderGoods) {
+                if (goods.getCategory().equals(userGoods.getCategory())) {
                     score = goods.getScore() + categoryFactor;
                     goods.setScore(score);
                 }
@@ -143,9 +142,9 @@ public class RecommendUtil {
 
         List<OrderInfo> orderInfos = orderService.getUserOrder(user_id).getData();
         List<Integer> goodsIds = new ArrayList<>();
-        for (OrderInfo orderInfo : orderInfos) {
-            goodsIds.addAll(orderInfo.getGoods_list().stream().map(OrderItemInfo::getGoods_id).toList());
-        }
+        if (orderInfos != null)
+            for (OrderInfo orderInfo : orderInfos)
+                goodsIds.addAll(orderInfo.getGoods_list().stream().map(OrderItemInfo::getGoods_id).toList());
         return goodsIds;
     }
 
