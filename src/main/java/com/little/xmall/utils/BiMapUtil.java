@@ -8,7 +8,8 @@ public class BiMapUtil {
     private final Map<Integer, String> forwardMap = new HashMap<>();
     private final Map<String, Integer> reverseMap = new HashMap<>();
 
-    public BiMapUtil() {}
+    public BiMapUtil() {
+    }
 
     public void put(Integer key, String value) {
         forwardMap.put(key, value);

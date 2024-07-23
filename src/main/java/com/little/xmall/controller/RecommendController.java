@@ -14,6 +14,7 @@ import java.util.Map;
 
 /**
  * 推荐控制器类
+ *
  * @author Little
  */
 @Slf4j
@@ -32,7 +33,7 @@ public class RecommendController {
      * @return Response
      */
     @GetMapping("recommend_by_user_id")
-    public Response<List<Map<String, Object>>> recommendByUserId(int user_id){
+    public Response<List<Map<String, Object>>> recommendByUserId(int user_id) {
         return recommendService.recommendByUserId(user_id);
     }
 

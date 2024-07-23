@@ -51,7 +51,7 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
             return Response.success(ResponseCode.PREFERENCE_GET_SUCCESS, null);
 
         // 添加具体优惠信息
-        for (PreferenceInfo pref:list) {
+        for (PreferenceInfo pref : list) {
             int category_index = pref.getCategory_index();
             int pref_id = pref.getPref_id();
             switch (category_index) {
@@ -98,6 +98,6 @@ public class PreferenceServiceImpl extends ServiceImpl<PreferenceMapper, Prefere
         preferenceMapper.insert(preferenceInfo);
 
         int id = preferenceInfo.getPreference_id();
-        return Response.success(ResponseCode.PREFERENCE_ADD_SUCCESS, Map.of("preference_id",id));
+        return Response.success(ResponseCode.PREFERENCE_ADD_SUCCESS, Map.of("preference_id", id));
     }
 }

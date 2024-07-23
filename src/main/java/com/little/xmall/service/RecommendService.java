@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * 推荐服务接口
+ *
  * @author Little
  */
 public interface RecommendService extends IService<GoodsInfo> {

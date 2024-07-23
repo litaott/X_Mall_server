@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.little</groupId>
     <artifactId>XMall_server</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.4.0-SNAPSHOT</version>
     <name>XMall_server</name>
     <description>XMall_server</description>
     <properties>
@@ -92,22 +92,22 @@
         </dependency>
 
 
-<!--        &lt;!&ndash; JWT 相关 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>io.jsonwebtoken</groupId>-->
-<!--            <artifactId>jjwt-api</artifactId>-->
-<!--            <version>0.11.5</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.jsonwebtoken</groupId>-->
-<!--            <artifactId>jjwt-impl</artifactId>-->
-<!--            <version>0.11.5</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.jsonwebtoken</groupId>-->
-<!--            <artifactId>jjwt-jackson</artifactId>-->
-<!--            <version>0.11.5</version>-->
-<!--        </dependency>-->
+        <!--        &lt;!&ndash; JWT 相关 &ndash;&gt;-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.jsonwebtoken</groupId>-->
+        <!--            <artifactId>jjwt-api</artifactId>-->
+        <!--            <version>0.11.5</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.jsonwebtoken</groupId>-->
+        <!--            <artifactId>jjwt-impl</artifactId>-->
+        <!--            <version>0.11.5</version>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.jsonwebtoken</groupId>-->
+        <!--            <artifactId>jjwt-jackson</artifactId>-->
+        <!--            <version>0.11.5</version>-->
+        <!--        </dependency>-->
 
         <!--redis依赖-->
         <dependency>
@@ -120,11 +120,11 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>-->
-<!--            <version>4.0.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.github.xiaoymin</groupId>-->
+        <!--            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>-->
+        <!--            <version>4.0.0</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
@@ -168,9 +168,9 @@
         <!--        </dependency>-->
 
         <dependency>
-                    <groupId>org.springframework.security</groupId>
-                    <artifactId>spring-security-test</artifactId>
-                    <scope>test</scope>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!--swagger依赖-->
@@ -192,11 +192,11 @@
             <version>8.5.4</version>
         </dependency>
         <!--openai-->
-<!--        <dependency>-->
-<!--            <groupId>com.theokanning.openai-gpt3-java</groupId>-->
-<!--            <artifactId>client</artifactId>-->
-<!--            <version>0.9.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.theokanning.openai-gpt3-java</groupId>-->
+        <!--            <artifactId>client</artifactId>-->
+        <!--            <version>0.9.0</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -290,7 +290,7 @@
                 <artifactId>wagon-maven-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <fromFile>target/XMall_server-0.3.0-SNAPSHOT.jar</fromFile>
+                    <fromFile>target/XMall_server-0.4.0-SNAPSHOT.jar</fromFile>
                     <url>scp://root:Lt1544806673@113.45.146.218:/root</url>
                 </configuration>
             </plugin>

@@ -33,7 +33,7 @@ public class ResourceServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public Response<List<String>> upload(MultipartFile[] files) {
 
         List<String> urls = new ArrayList<>();
-        for (MultipartFile file : files){
+        for (MultipartFile file : files) {
             try {
 
                 //原始文件名

@@ -20,11 +20,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("history_info")
 public class HistoryInfo {
     @TableId(value = "user_id", type = IdType.AUTO)
     Integer user_id;
     Integer goods_id;
-    String datetime;
+    String time;
     Boolean is_delete;
     @TableField(exist = false)
     GoodsInfo goodsInfo;

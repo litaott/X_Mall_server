@@ -5,6 +5,7 @@ import com.little.xmall.utils.BiMapUtil;
 
 /**
  * 常量映射表类
+ *
  * @author Little
  */
 
@@ -12,7 +13,7 @@ public class OptionMap {
     public static final BiMapUtil
             USER_GENDER,        // 用户性别，0:未知 1:男 2:女
             USER_ROLE,          // 用户角色，0:普通用户 1:管理员
-            ADDRESS_LABEL,      // 地址标签，0:家 1:学校 2:公司
+            ADDRESS_LABEL,      // 地址标签，0:无标签 1:学校 2:公司 3:家
             GOODS_CATEGORY,     // 商品类别，0:粮食 1:果蔬 2:畜牧 3:加工食品 4:农具设备 5:节庆礼品
             PAY_WAY,            // 支付方式，0:支付宝 1:微信 2:余额
             ORDER_STATUS,       // 订单状态，0:待付款 1:待发货 2:待收货 3:待完成 4:已完成
@@ -38,7 +39,7 @@ public class OptionMap {
         ADDRESS_LABEL.put(0, "无标签");
         ADDRESS_LABEL.put(1, "学校");
         ADDRESS_LABEL.put(2, "公司");
-        ADDRESS_LABEL.put(3,"家");
+        ADDRESS_LABEL.put(3, "家");
 
         //商品分类
         GOODS_CATEGORY = new BiMapUtil();

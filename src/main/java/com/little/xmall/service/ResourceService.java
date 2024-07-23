@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * 资源服务接口
+ *
  * @author Little
  */
 public interface ResourceService extends IService<UserInfo> {

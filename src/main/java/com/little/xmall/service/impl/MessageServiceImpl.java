@@ -29,7 +29,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageInfoMapper, MessageIn
     private final MessageInfoMapper messageInfoMapper;
 
     @Override
-    public Response<Map<String,Object>> sendMessage(MessageInfo messageInfo) {
+    public Response<Map<String, Object>> sendMessage(MessageInfo messageInfo) {
 
         // 参数为空
         if (messageInfo == null)
@@ -43,7 +43,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageInfoMapper, MessageIn
     }
 
     @Override
-    public Response<List<Map<String,Object>>> getMessage(int user_id, int store_id) {
+    public Response<List<Map<String, Object>>> getMessage(int user_id, int store_id) {
 
         LambdaQueryWrapper<MessageInfo> queryWrapper = new LambdaQueryWrapper<>();
 
