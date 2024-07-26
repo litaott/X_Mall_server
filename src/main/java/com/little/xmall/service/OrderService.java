@@ -37,7 +37,7 @@ public interface OrderService extends IService<OrderInfo> {
      * @param store_id 店铺id
      * @return Response
      */
-    Response<List<Map<String, Object>>> getStoreOrder(int store_id);
+    Response<List<OrderInfo>> getStoreOrder(int store_id);
 
     /**
      * 用户支付订单

@@ -70,25 +70,25 @@ public class AfterSaleServiceImpl extends ServiceImpl<AfterSaleMapper, AfterSale
     }
 
     @Override
-    public Response<List<Map<String, Object>>> get_user_after_sale(int user_id) {
+    public Response<List<AfterSaleInfo>> get_user_after_sale(int user_id) {
 
         LambdaQueryWrapper<AfterSaleInfo> queryWrapper = new LambdaQueryWrapper<>();
 
         // 获取用户售后订单
         queryWrapper.eq(AfterSaleInfo::getUser_id, user_id);
-        List<Map<String, Object>> list = afterSaleMapper.selectMaps(queryWrapper);
+        List<AfterSaleInfo> list = afterSaleMapper.selectList(queryWrapper);
 
         return Response.success(ResponseCode.AFTER_SALE_USER_GET_SUCCESS, list);
     }
 
     @Override
-    public Response<List<Map<String, Object>>> get_store_after_sale(int store_id) {
+    public Response<List<AfterSaleInfo>> get_store_after_sale(int store_id) {
 
         LambdaQueryWrapper<AfterSaleInfo> queryWrapper = new LambdaQueryWrapper<>();
 
         // 获取店铺售后订单
         queryWrapper.eq(AfterSaleInfo::getStore_id, store_id);
-        List<Map<String, Object>> list = afterSaleMapper.selectMaps(queryWrapper);
+        List<AfterSaleInfo> list = afterSaleMapper.selectList(queryWrapper);
 
         return Response.success(ResponseCode.AFTER_SALE_STORE_GET_SUCCESS, list);
     }

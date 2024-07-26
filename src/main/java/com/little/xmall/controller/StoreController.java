@@ -36,7 +36,7 @@ public class StoreController {
         return storeService.getStore(store_id);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public Response<Map<String, Object>> updateStore(@RequestBody StoreInfo storeInfo) {
         return storeService.updateStore(storeInfo);
     }

@@ -36,7 +36,7 @@ public interface AfterSaleService extends IService<AfterSaleInfo> {
      * @param user_id 用户id
      * @return Response
      */
-    Response<List<Map<String, Object>>> get_user_after_sale(int user_id);
+    Response<List<AfterSaleInfo>> get_user_after_sale(int user_id);
 
     /**
      * 获取店铺售后订单列表
@@ -44,5 +44,5 @@ public interface AfterSaleService extends IService<AfterSaleInfo> {
      * @param store_id 店铺id
      * @return Response
      */
-    Response<List<Map<String, Object>>> get_store_after_sale(int store_id);
+    Response<List<AfterSaleInfo>> get_store_after_sale(int store_id);
 }
