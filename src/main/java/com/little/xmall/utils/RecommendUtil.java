@@ -175,7 +175,6 @@ public class RecommendUtil {
             }
             similarityMatrix.put(userIdA, similarityRow);
         }
-        System.out.println(similarityMatrix);
         return similarityMatrix;
     }
 

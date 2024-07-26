@@ -65,7 +65,6 @@ public class StoreServiceImpl extends ServiceImpl<StoreInfoMapper, StoreInfo> im
         if (result > 0) {
             return Response.success(ResponseCode.SUCCESS, null);
         } else {
-
             return null;
         }
     }

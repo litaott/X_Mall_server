@@ -82,7 +82,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
     }
 
     @Override
-    public Response<List<Map<String, Object>>> getStoreOrder(int store_id) {
+    public Response<List<OrderInfo>> getStoreOrder(int store_id) {
 
         LambdaQueryWrapper<OrderInfo> order_queryWrapper = new LambdaQueryWrapper<>();
 
@@ -101,7 +101,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
             orderInfo.setGoods_list(orderItemInfoMapper.selectList(item_queryWrapper));
         }
 
-        return Response.success(ResponseCode.ORDER_GET_SUCCESS, MapUtil.getMapList(list));
+        return Response.success(ResponseCode.ORDER_GET_SUCCESS, list);
 
     }
 
@@ -167,6 +167,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo> im
             case 1 -> {
 
                 // 减少商品库存
+                LambdaQueryWrapper<OrderItemInfo> item_queryWrapper = new LambdaQueryWrapper<>();
+                item_queryWrapper.eq(OrderItemInfo::getOrder_id, o.getOrder_id());
+                o.setGoods_list(orderItemInfoMapper.selectList(item_queryWrapper));
                 for (OrderItemInfo itemInfo : o.getGoods_list()) {
                     goodsService.declineQuantity(itemInfo.getGoods_id(), itemInfo.getQuantity());
                 }

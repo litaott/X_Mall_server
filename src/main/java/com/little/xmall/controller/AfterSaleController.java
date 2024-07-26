@@ -27,7 +27,7 @@ public class AfterSaleController {
     /**
      * 用户申请售后
      *
-     * @param afterSaleInfo 消息信息
+     * @param afterSaleInfo 售后信息
      * @return Response
      */
     @PostMapping("/apply")
@@ -53,7 +53,7 @@ public class AfterSaleController {
      * @return Response
      */
     @GetMapping("/get_user_after_sale")
-    Response<List<Map<String, Object>>> get_user_after_sale(int user_id) {
+    Response<List<AfterSaleInfo>> get_user_after_sale(int user_id) {
         return afterSaleService.get_user_after_sale(user_id);
     }
 
@@ -64,7 +64,7 @@ public class AfterSaleController {
      * @return Response
      */
     @GetMapping("/get_store_after_sale")
-    Response<List<Map<String, Object>>> get_store_after_sale(int store_id) {
+    Response<List<AfterSaleInfo>> get_store_after_sale(int store_id) {
         return afterSaleService.get_store_after_sale(store_id);
     }
 
